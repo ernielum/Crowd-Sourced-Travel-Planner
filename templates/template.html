@@ -1,0 +1,29 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Flask Parent Template</title>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header>
+        {% block nav %}
+        <div class="nav">
+            <a href="{{ url_for('welcome') }}">Welcome</a>
+            <a href="{{ url_for('trips') }}">Trips</a>
+            <a href="{{ url_for('experiences') }}">Experiences</a>
+            <a href="{{ url_for('user_info') }}">Profile</a>
+        </div>
+        {% endblock nav %}
+
+    </header>
+    {% block content %}
+    {% endblock %}
+
+</body>
+
+</html>
