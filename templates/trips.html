@@ -19,6 +19,17 @@
 
     <main>
         <h2>My Trips</h2>
+        <br>
+        <table>
+            <tr>
+                <th>Trips</th>
+            </tr>
+            {% for trip in trips %}
+            <tr>
+                <td>{{ trip }}</td>
+            </tr>
+            {% endfor %}
+        </table>
     </main>
 
     {% endblock %}

@@ -141,3 +141,33 @@ h5,
 h6 {
   color: var(--medium-red);
 }
+
+/*  -----  Tables  ----- */
+table {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 50%;
+}
+
+th,
+td {
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  font-size: calc(.5rem + 1.3vw);
+  padding: 8px;
+}
+
+th {
+  background-color: rgb(48, 137, 219);
+  border-color: var(--white);
+  color: var(--white);
+}
+
+td {
+  background-color: rgb(226, 240, 253);
+}

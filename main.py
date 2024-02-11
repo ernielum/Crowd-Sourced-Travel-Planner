@@ -7,8 +7,8 @@ from urllib.parse import quote_plus, urlencode
 
 # Third-party imports
 from dotenv import find_dotenv, load_dotenv
-#from flask import Flask, request, jsonify, redirect, render_template, session, url_for, _request_ctx_stack
-from flask import Flask, request, jsonify, redirect, render_template, session, url_for
+from flask import Flask, request, jsonify, redirect, render_template, session, url_for, _request_ctx_stack
+#from flask import Flask, request, jsonify, redirect, render_template, session, url_for
 from flask_cors import cross_origin
 from jose import jwt
 from werkzeug.exceptions import HTTPException
@@ -188,9 +188,21 @@ def experiences():
 
 @app.route('/trips')
 def trips():
+    # TODO: Replace dummy test data with endpoint code and logic.
+
+    # Dummy test data for Front-End testing
+    user_trips = [
+        "Paris",
+        "Glacier National Park",
+        "Rome",
+        "Swiss Alps",
+        "Bora Bora",
+        "Maui",
+        "London, England",
+    ]
     #user_id = session.get('profile')['sub']  #Temporarily commented out for FE dev
     jwt_token = session.get('jwt')  
-    return render_template('trips.html', jwt=jwt_token)
+    return render_template('trips.html', jwt=jwt_token, trips=user_trips)
 
 # -----------------------------------------------------------------------------
 
