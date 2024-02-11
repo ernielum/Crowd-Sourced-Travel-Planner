@@ -19,7 +19,12 @@
 
     <main>
         <h2>My Trips</h2>
-        <br>
+        <form id="new-trip" method="POST" action="/trips">
+            <fieldset>
+                <input type="text" placeholder="New Trip" id="new_trip" required="required" />
+                <input type="submit" value="Add Trip">
+            </fieldset>
+        </form>
         <table>
             <tr>
                 <th>Trips</th>

@@ -7,8 +7,8 @@ from urllib.parse import quote_plus, urlencode
 
 # Third-party imports
 from dotenv import find_dotenv, load_dotenv
-from flask import Flask, request, jsonify, redirect, render_template, session, url_for, _request_ctx_stack
-#from flask import Flask, request, jsonify, redirect, render_template, session, url_for
+#from flask import Flask, request, jsonify, redirect, render_template, session, url_for, _request_ctx_stack
+from flask import Flask, request, jsonify, redirect, render_template, session, url_for
 from flask_cors import cross_origin
 from jose import jwt
 from werkzeug.exceptions import HTTPException
@@ -186,7 +186,7 @@ def experiences():
 
 # ----------------------------------------------------------------------------- TRIPS
 
-@app.route('/trips')
+@app.route('/trips', methods=['GET','POST'])
 def trips():
     # TODO: Replace dummy test data with endpoint code and logic.
 
