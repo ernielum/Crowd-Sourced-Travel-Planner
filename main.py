@@ -16,7 +16,7 @@ from google.cloud import datastore
 import requests
 
 # Local application imports
-import constants
+# import constants
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
