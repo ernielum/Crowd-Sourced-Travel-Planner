@@ -7,7 +7,8 @@ from urllib.parse import quote_plus, urlencode
 
 # Third-party imports
 from dotenv import find_dotenv, load_dotenv
-from flask import Flask, request, jsonify, redirect, render_template, session, url_for, _request_ctx_stack
+#from flask import Flask, request, jsonify, redirect, render_template, session, url_for, _request_ctx_stack
+from flask import Flask, request, jsonify, redirect, render_template, session, url_for
 from flask_cors import cross_origin
 from jose import jwt
 from werkzeug.exceptions import HTTPException
@@ -16,7 +17,7 @@ from google.cloud import datastore
 import requests
 
 # Local application imports
-import constants
+#import constants
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
@@ -123,7 +124,6 @@ def verify_jwt(request):
                                 "No RSA key in JWKS"}, 401)
 
 # ----------------------------------------------------------------------------- HOMEPAGE
-
 @app.route('/')
 def welcome():
     return render_template('welcome.html')
@@ -162,9 +162,10 @@ def callback():
 
 @app.route('/user-info')
 def user_info():
-    user_id = session.get('profile')['sub']  
+    #user_id = session.get('profile')['sub']  #Temporarily commented out for FE dev
     jwt_token = session.get('jwt')  
-    return render_template('userinfo.html', jwt=jwt_token, user_id=user_id, user_info=session.get('profile'))
+    #return render_template('userinfo.html', jwt=jwt_token, user_id=user_id, user_info=session.get('profile')) #Temporarily commented out for FE dev
+    return render_template('userinfo.html', jwt=jwt_token, user_info=session.get('profile'))
 
 # ----------------------------------------------------------------------------- USERS
 
@@ -177,9 +178,19 @@ def get_users():
 
 # ----------------------------------------------------------------------------- EXPERIENCES
 
+@app.route('/experiences')
+def experiences():
+    #user_id = session.get('profile')['sub']  #Temporarily commented out for FE dev
+    jwt_token = session.get('jwt')  
+    return render_template('experiences.html', jwt=jwt_token)
 
 # ----------------------------------------------------------------------------- TRIPS
 
+@app.route('/trips')
+def trips():
+    #user_id = session.get('profile')['sub']  #Temporarily commented out for FE dev
+    jwt_token = session.get('jwt')  
+    return render_template('trips.html', jwt=jwt_token)
 
 # -----------------------------------------------------------------------------
 
