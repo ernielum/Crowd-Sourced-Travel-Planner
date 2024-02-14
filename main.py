@@ -30,7 +30,6 @@ client = datastore.Client()
 
 ALGORITHMS = ["RS256"]
 
-
 # ----------------------------------------------------------------------------- OAUTH
 
 oauth = OAuth(app)
@@ -203,6 +202,27 @@ def trips():
     #user_id = session.get('profile')['sub']  #Temporarily commented out for FE dev
     jwt_token = session.get('jwt')  
     return render_template('trips.html', jwt=jwt_token, trips=user_trips)
+
+# ----------------------------------------------------------------------------- TRIP
+
+@app.route('/trip_experiences', methods=['GET','POST'])
+def trip_experiences():
+    # TODO: Replace dummy test data with endpoint code and logic.
+
+    # Dummy test data for Front-End testing
+    trip_data = {
+        "id": 1,
+        "name": "Paris",
+        "experiences": 
+        [
+            {"id": 1, "name": "Eifel Tower"},
+            {"id": 2, "name": "The Louvre"},
+            {"id": 3, "name": "Seine River Cruise"}
+        ]
+    }
+
+    jwt_token = session.get('jwt')  
+    return render_template('trip_experiences.html', jwt=jwt_token, trip=trip_data)
 
 # -----------------------------------------------------------------------------
 
