@@ -1,0 +1,52 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Capstone: Crowd-sourced Travel App</title>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>Capstone: Crowd-sourced Travel App</h1>
+    </header>
+
+    {% extends "trip_template.html" %}
+
+    <main class="main-top-buttons">
+
+        {% block content %}
+        <h2>My Trip</h2>
+
+        <form id="new-experience" method="POST" action="/trips/{{trip.id}}/experiences">
+            <fieldset>
+                <input type="text" placeholder="New Experience" id="new_experience" required="required" />
+                <input type="submit" value="Add Experience">
+            </fieldset>
+        </form>
+
+        <table>
+            <tr>
+                <th>{{ trip.name }}</th>
+            </tr>
+            {% for experience in trip.experiences %}
+            <tr>
+                <td class="button-table-td">
+                    <form id="view-experience" method="GET" action="/experience_view">
+                        <button class="button-table-td-button" name="experienceId" id="experienceId"
+                            value="{{experience.id}}">
+                            {{ experience.name }}</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endblock %}
+
+    </main>
+</body>
+
+</html>
