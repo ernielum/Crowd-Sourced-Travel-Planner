@@ -1,0 +1,108 @@
+{
+    "info": {
+      "_postman_id": "a unique identifier for your collection",
+      "name": "User Management API",
+      "description": "A collection to manage user information.",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Get User Info",
+        "request": {
+          "method": "GET",
+          "url": "{{url}}/user-info",
+          "header": [],
+          "body": {
+            "mode": "raw",
+            "raw": ""
+          },
+          "description": "Gets a user's profile information."
+        },
+        "response": []
+      },
+      {
+        "name": "Update User",
+        "request": {
+          "method": "PUT",
+          "url": "{{url}}/users/{{userId}}",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer {{jwt_token}}"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"displayName\": \"New Display Name\",\n  \"preferences\": {\"theme\": \"dark\"}\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "description": "Updates a user's Datastore attributes."
+        },
+        "response": []
+      },
+      {
+        "name": "Delete User",
+        "request": {
+          "method": "DELETE",
+          "url": "{{url}}/users/{{userId}}",
+          "header": [
+            {
+              "key": "Authorization",
+              "value": "Bearer {{jwt_token}}"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": ""
+          },
+          "description": "Allows a user to be deleted."
+        },
+        "response": []
+      }
+    ],
+    "auth": {
+      "type": "bearer",
+      "bearer": [
+        {
+          "key": "token",
+          "value": "{{jwt_token}}",
+          "type": "string"
+        }
+      ]
+    },
+    "event": [
+      {
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test(\"Status code is 200\", function () {",
+            "    pm.response.to.have.status(200);",
+            "});"
+          ],
+          "type": "text/javascript"
+        }
+      }
+    ],
+    "variable": [
+      {
+        "id": "url",
+        "value": "http://<your_domain>"
+      },
+      {
+        "id": "userId",
+        "value": "<user_id>"
+      },
+      {
+        "id": "jwt_token",
+        "value": "<jwt_token>"
+      }
+    ]
+  }
