@@ -1,3 +1,12 @@
+<!-- 
+    This page displays all crowd-sourced experiences.
+
+    Actions:
+            - Search experiences by: location, keyword
+            - Create experience link
+
+-->
+
 <!doctype html>
 
 <html>
@@ -19,6 +28,31 @@
 
     <main>
         <h2>Experiences</h2>
+        <div>
+            <a href="{{ url_for('experience_create') }}" class="button-link">Create Experience</a>
+        </div>
+        <br>
+
+        <form class="exerpience-search-form" id="search-experiences" method="POST" action="/experiences">
+            <select id="search-type" name="search=type">
+                <option value="location">location</option>
+                <option value="keyword">keyword</option>
+            </select>
+            <input class="experience-search-input" type="text" id="search-input" name="search-input">
+            <button type="submit">Search</button>
+        </form>
+
+        <table class="experiences-table">
+            <tr>
+                <th>Experiences</th>
+            </tr>
+            {% for experience in experiences %}
+
+            <tr>{% include 'experience_td.html' %}</tr>
+
+            {% endfor %}
+
+        </table>
     </main>
 
     {% endblock %}

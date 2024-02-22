@@ -1,0 +1,73 @@
+<!-- 
+    This page allows a user to create an experience.
+
+    Actions:
+            - Create experience with specified form input
+
+-->
+
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Capstone: Crowd-sourced Travel App</title>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>Capstone: Crowd-sourced Travel App</h1>
+    </header>
+
+    {% extends "template.html" %}
+    {% block content %}
+
+    <main>
+        <br>
+        <h2>Create Experience</h2>
+        <br>
+
+        <form class="experience-create-form" id="new-experience" method="POST" action="/experience_create"
+            enctype="multipart/form-data">
+            <fieldset>
+                <label class="create-experience-label" for="name">Name </label>
+                <input class="name-form-field" type="text" placeholder="Experience Name" id="name" name="name"
+                    required="required" />
+                <br>
+
+                <label class="create-experience-label" for="description">Description </label>
+                <textarea placeholder="Description..." rows="4" id="description" name="description" /></textarea>
+                <br>
+
+                <label class="create-experience-label" for="location">Location </label>
+                <input class="location-field" type="text" placeholder="Location" id="location" name="location" />
+                <br>
+
+                <label class="create-experience-label" for="rating">Rating </label>
+                <select class="create-experience-rating" id="rating" name="rating">
+                    <option value="1">1 Star</option>
+                    <option value="2">2 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="5">5 Stars</option>
+                </select>
+                <br>
+
+                <label class="create-experience-label" for="image">Select an image </label>
+                <input type="file" id="image" name="image" accept="image/*" />
+                <br>
+
+                <br>
+                <br>
+                <input type="submit" value="Create Experience">
+            </fieldset>
+        </form>
+    </main>
+
+    {% endblock %}
+</body>
+
+</html>

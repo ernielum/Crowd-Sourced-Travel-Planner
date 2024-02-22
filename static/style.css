@@ -59,9 +59,17 @@ footer {
 main {
   background-color: var(--white);
   color: var(--black);
+  position: relative;
   margin: 0%;
   padding: 3%;
 }
+
+.div-container {
+  display: inline-block;
+  border: 1px solid lightgrey;
+  margin-bottom: 20px;
+}
+
 
 /* ----- Anchors ----- Text links */
 /*a {}
@@ -155,27 +163,68 @@ table {
 th,
 td {
   /*border: 1px solid #dddddd;*/
-  border: 1px solid black;
-  border-radius: 10px;
+  border-radius: 3px;
   overflow: hidden;
-  text-align: center;
-  font-size: calc(.5rem + 1.3vw);
   padding: 8px;
 }
 
 th {
-  background-color: rgb(48, 137, 219);
-  border-color: var(--white);
-  color: var(--white);
+  background-color: lightgrey;
+  color: rgb(46, 46, 46);
+  text-align: center;
+  font-size: calc(.5rem + 1.3vw);
+}
+
+.th-trip {
+  background-color: rgb(154, 241, 230);
 }
 
 td {
-  background-color: rgb(226, 240, 253);
+  background-color: var(--white);
+  border: 1px solid lightgrey;
 }
 
-/*  -----  Forms and Fieldsets  ----- */
+.td-unpin {
+  border: none;
+}
+
+.experiences-table {
+  width: 73%;
+}
+
+.rating-container {
+  padding-top: 4px;
+  padding-bottom: 6px;
+  padding-left: 8px;
+}
+
+.rating-inline-block {
+  display: inline-block;
+  padding-right: 20px;
+}
+
+.location-container {
+  padding-bottom: 6px;
+  padding-left: 8px;
+}
+
+.description-container {
+  padding-bottom: 6px;
+  padding-top: 6px;
+  padding-left: 8px;
+}
+
+/*  -----  Forms, Fieldsets, and Buttons  ----- */
 fieldset {
   border: none;
+}
+
+select {
+  border-radius: 10px;
+  padding: 10px;
+  background-color: var(--white);
+  font-size: 17px;
+  border: 1px solid lightgrey;
 }
 
 input {
@@ -183,6 +232,13 @@ input {
   padding: 10px;
   font-size: 17px;
   border: 2px solid var(--dark-red);
+}
+
+
+input[type="file"] {
+  padding: 8px;
+  margin-bottom: 20px;
+  border: 1px solid lightgrey;
 }
 
 /* submit button */
@@ -194,4 +250,213 @@ input[type="submit"] {
 /* submit button - hover effect */
 input[type="submit"]:hover {
   background-color: var(--light-red);
+}
+
+button {
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 17px;
+  border: 2px solid var(--dark-red);
+  background-color: var(--medium-red);
+  color: var(--white);
+}
+
+button:hover {
+  background-color: var(--light-red);
+}
+
+.small-button {
+  padding: 6px;
+}
+
+.button-link {
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 17px;
+  text-decoration: none;
+  border: 2px solid var(--dark-red);
+  background-color: var(--medium-red);
+  color: var(--white);
+  cursor: pointer;
+}
+
+.button-link:hover {
+  background-color: var(--light-red);
+  cursor: pointer;
+}
+
+/* Trip_edit unpin form */
+.unpin-form {
+  width: auto;
+}
+
+/* View Experience form */
+.experience-view-form {
+  width: 320px;
+  margin: 0;
+}
+
+/* Experiences search form */
+.exerpience-search-form {
+  width: 73%;
+  margin: 0 auto;
+  margin-left: 15%;
+  padding-bottom: 10px;
+}
+
+.experience-search-input {
+  width: 70%;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid lightgrey;
+}
+
+/* Experience Create form */
+.exerpience-create-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.create-experience-label {
+  font-size: 17px;
+  display: inline-block;
+  width: 100px;
+  padding-bottom: 5px;
+}
+
+.name-form-field {
+  width: 80%;
+  padding: 8px;
+  margin-bottom: 20px;
+}
+
+textarea {
+  width: 80%;
+  padding: 8px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  font-size: 17px;
+  font-family: 'Roboto', sans-serif;
+  border: 1px solid lightgrey;
+  vertical-align: top;
+}
+
+.location-field {
+  width: 50%;
+  border-radius: 10px;
+  padding: 8px;
+  margin-bottom: 20px;
+  font-size: 17px;
+  border: 1px solid lightgrey;
+}
+
+.create-experience-rating {
+  border-radius: 10px;
+  padding: 8px;
+  margin-bottom: 20px;
+  font-size: 17px;
+  border: 1px solid lightgrey;
+}
+
+/* View Experience form */
+.pin-experience-label {
+  padding-right: 5px;
+}
+
+.rating-field {
+  border-radius: 10px;
+  padding: 8px;
+  font-size: 17px;
+  border: 1px solid lightgrey;
+}
+
+
+/* Button Table */
+.button-table-td {
+  background-color: rgb(238, 250, 249);
+  border: 1px solid lightgrey;
+  color: var(--white);
+  padding: 0px;
+}
+
+.button-table-td-button {
+  font-size: calc(.5rem + 1.3vw);
+  border: none;
+  background-color: var(--white);
+  color: var(--black);
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.button-table-td-button:hover {
+  background-color: var(--white);
+  color: rgb(90, 201, 186);
+}
+
+input[type=submit].submit-experience-view {
+  border-radius: 10px;
+  padding: 10px;
+  width: 50%;
+  text-align: left;
+  font-size: calc(.5rem + 1.3vw);
+  border: none;
+  background-color: var(--white);
+  color: var(--black);
+  box-sizing: border-box;
+}
+
+input[type=submit].submit-experience-view:hover {
+  background-color: rgb(215, 252, 247);
+}
+
+.button-table-experience {
+  width: 50%;
+  text-align: left;
+  font-size: calc(.5rem + 1.3vw);
+  border: none;
+  background-color: var(--white);
+  color: var(--black);
+  box-sizing: border-box;
+}
+
+.button-table-experience:hover {
+  background-color: rgb(215, 252, 247);
+}
+
+
+.top-right-button {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+.main-top-buttons {
+  padding-top: 1%;
+  padding-right: 2%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button-container-button {
+  margin-left: 10px;
+}
+
+/* Images */
+.image-container {
+  float: right;
+  width: 500px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }

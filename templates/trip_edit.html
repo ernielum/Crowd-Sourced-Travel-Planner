@@ -1,3 +1,15 @@
+<!-- 
+    This page allows editing of a specific user's trip and lists pinned experiences.
+
+    Actions:
+            - Edit trip link
+            - Delete trip
+            - Update trip name
+            - Unpin an experience
+            - Select Experience to view details
+
+-->
+
 <!doctype html>
 
 <html>
@@ -28,21 +40,16 @@
             </fieldset>
         </form>
 
-        <table>
+        <table class="experiences-table">
             <tr>
-                <th>{{ trip.name }}</th>
+                <th class="th-trip">{{ trip.name }}</th>
             </tr>
             {% for experience in trip.experiences %}
             <tr>
-                <td class="button-table-td">
-                    <form id="view-experience" method="GET" action="/experience_view">
-                        <button class="button-table-td-button" name="view-experience" id="experienceId"
-                            value="{{experience.id}}">
-                            {{ experience.name }}</button>
-                    </form>
-                </td>
-                <td>
-                    <form id="unpin-experience" method="POST" action="/unpin_experience">
+                {% include 'experience_td.html' %}
+
+                <td class="td-unpin">
+                    <form class="unpin-form" id="unpin-experience" method="POST" action="/unpin_experience">
                         <input type="hidden" id="tripId" name="tripId" value={{trip.id}} />
                         <input type="hidden" id="experienceId" name="experienceId" value={{experience.id}} />
                         <input class="small-button" type="submit" value="unpin">

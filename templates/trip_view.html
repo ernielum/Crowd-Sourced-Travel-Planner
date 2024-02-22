@@ -1,3 +1,14 @@
+<!-- 
+    This page displays a specific user's trip and lists pinned experiences.
+
+    Actions:
+            - Edit trip link
+            - Delete trip
+            - Search more experiences link
+            - Select Experience to view details
+
+-->
+
 <!doctype html>
 
 <html>
@@ -21,32 +32,26 @@
         {% block content %}
         <h2>My Trip</h2>
 
-        <form id="new-experience" method="POST" action="/trips/{{trip.id}}/experiences">
-            <fieldset>
-                <input type="text" placeholder="New Experience" id="new_experience" required="required" />
-                <input type="submit" value="Add Experience">
-            </fieldset>
-        </form>
+        <div>
+            <a href="{{ url_for('experiences') }}" class="button-link">Search More Experiences</a>
+        </div>
+        <br>
 
-        <table>
+        <table class="experiences-table">
             <tr>
-                <th>{{ trip.name }}</th>
+                <th class="th-trip">{{ trip.name }}</th>
             </tr>
             {% for experience in trip.experiences %}
-            <tr>
-                <td class="button-table-td">
-                    <form id="view-experience" method="GET" action="/experience_view">
-                        <button class="button-table-td-button" name="experienceId" id="experienceId"
-                            value="{{experience.id}}">
-                            {{ experience.name }}</button>
-                    </form>
-                </td>
-            </tr>
+
+            <tr>{% include 'experience_td.html' %}</tr>
+
             {% endfor %}
         </table>
+
         {% endblock %}
 
     </main>
+
 </body>
 
 </html>
