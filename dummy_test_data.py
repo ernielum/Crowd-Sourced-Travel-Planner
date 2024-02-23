@@ -7,7 +7,7 @@ dummy_test_user_trips = [
 
 dummy_user_info = {"id": 1}
 
-dummy_test_experiences_data = [
+dummy_test_paris_experiences = [
     {   "id": 1,
         "name": "Eiffel Tower",
         "description": "Enjoy a thrilling trip to the Top and visit the entire Eiffel Tower accompanied by a guide \
@@ -122,7 +122,10 @@ dummy_test_rome_experiences = [
     }
 ]
 
-dummy_test_paris_experiences = dummy_test_experiences_data
+dummy_test_experiences_data = []
+dummy_test_experiences_data.extend(dummy_test_paris_experiences)
+dummy_test_experiences_data.extend(dummy_test_glacier_experiences)
+dummy_test_experiences_data.extend(dummy_test_rome_experiences)
 
 dummy_test_trip_data = {
     "trip1": {
