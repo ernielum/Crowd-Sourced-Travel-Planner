@@ -1,0 +1,83 @@
+{
+    "info": {
+      "_postman_id": "unique_identifier_for_ratings_collection",
+      "name": "Ratings Management API",
+      "description": "A collection to manage ratings for experiences.",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Rate an Experience",
+        "request": {
+          "method": "POST",
+          "url": "{{url}}/experiences/{{experienceId}}/ratings",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer {{jwt_token}}"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"rating\": {{rating}},\n  \"tripId\": \"{{tripId}}\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "description": "Rate an experience, associated with a user and optionally a trip."
+        },
+        "response": []
+      },
+      {
+        "name": "Get All Ratings for an Experience",
+        "request": {
+          "method": "GET",
+          "url": "{{url}}/experiences/{{experienceId}}/ratings",
+          "header": [
+            {
+              "key": "Authorization",
+              "value": "Bearer {{jwt_token}}"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": ""
+          },
+          "description": "Get all ratings for an experience, including an aggregate score."
+        },
+        "response": []
+      }
+    ],
+    "variable": [
+      {
+        "key": "url",
+        "value": "http://your_api_domain_here"
+      },
+      {
+        "key": "experienceId",
+        "value": "experience_id_here"
+      },
+      {
+        "key": "userId",
+        "value": "user_id_here"
+      },
+      {
+        "key": "rating",
+        "value": "rating_value_here"
+      },
+      {
+        "key": "tripId",
+        "value": "optional_trip_id_here"
+      },
+      {
+        "key": "jwt_token",
+        "value": "jwt_token_here"
+      }
+    ]
+  }
