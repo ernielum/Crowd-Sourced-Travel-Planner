@@ -64,7 +64,7 @@ main {
   padding: 3%;
 }
 
-.div-container {
+.div-container-visible {
   display: inline-block;
   border: 1px solid lightgrey;
   margin-bottom: 20px;
@@ -140,14 +140,20 @@ h6 {
 }
 
 h2 {
-  color: var(--dark-red);
+  /* color: var(--dark-red); */
+  color: rgb(6, 53, 141);
 }
 
 h3,
 h4,
 h5,
 h6 {
-  color: var(--medium-red);
+  /* color: var(--medium-red); */
+  color: rgb(112, 167, 212);
+}
+
+.small-descriptor {
+  font-size: small;
 }
 
 /*  -----  Tables  ----- */
@@ -231,7 +237,8 @@ input {
   border-radius: 10px;
   padding: 10px;
   font-size: 17px;
-  border: 2px solid var(--dark-red);
+  /* border: 2px solid var(--dark-red); */
+  border: 1px solid rgb(20, 67, 99);
 }
 
 
@@ -243,26 +250,27 @@ input[type="file"] {
 
 /* submit button */
 input[type="submit"] {
-  background-color: var(--medium-red);
-  color: var(--white);
+  border: 2px solid rgb(20, 67, 99);
+  background-color: rgb(228, 241, 250);
+  color: rgb(20, 67, 99);
 }
 
 /* submit button - hover effect */
 input[type="submit"]:hover {
-  background-color: var(--light-red);
+  background-color: rgb(202, 229, 247);
 }
 
 button {
   border-radius: 10px;
   padding: 10px;
   font-size: 17px;
-  border: 2px solid var(--dark-red);
-  background-color: var(--medium-red);
-  color: var(--white);
+  border: 2px solid rgb(20, 67, 99);
+  background-color: rgb(228, 241, 250);
+  color: rgb(20, 67, 99);
 }
 
 button:hover {
-  background-color: var(--light-red);
+  background-color: rgb(202, 229, 247);
 }
 
 .small-button {
@@ -274,14 +282,14 @@ button:hover {
   padding: 10px;
   font-size: 17px;
   text-decoration: none;
-  border: 2px solid var(--dark-red);
-  background-color: var(--medium-red);
-  color: var(--white);
+  border: 2px solid rgb(59, 153, 140);
+  background-color: var(--white);
+  color: rgb(20, 99, 90);
   cursor: pointer;
 }
 
 .button-link:hover {
-  background-color: var(--light-red);
+  background-color: var(--white);
   cursor: pointer;
 }
 
