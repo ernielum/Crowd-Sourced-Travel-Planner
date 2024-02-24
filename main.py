@@ -7,14 +7,25 @@ from urllib.parse import quote_plus, urlencode
 
 # Third-party imports
 from dotenv import find_dotenv, load_dotenv
-#from flask import Flask, request, jsonify, redirect, render_template, session, url_for, _request_ctx_stack
-from flask import Flask, request, jsonify, redirect, render_template, session, url_for
+from flask import Flask, request, jsonify, redirect, render_template, session, url_for, _request_ctx_stack
 from flask_cors import cross_origin
 from jose import jwt
 from werkzeug.exceptions import HTTPException
 from authlib.integrations.flask_client import OAuth
 from google.cloud import datastore
 import requests
+
+# ------------------------------------------------------------------------------------------------------------------
+# FE Test Data
+# TODO: Remove dummy test data and imports
+from dummy_test_data import dummy_test_user_trips, dummy_test_trip_data, dummy_test_experiences_data, dummy_user_info
+import os
+UPLOAD_FOLDER = 'static/uploads/'
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
+
+# ------------------------------------------------------------------------------------------------------------------
+
 
 # Local application imports
 # import constants
@@ -30,6 +41,17 @@ client = datastore.Client()
 
 ALGORITHMS = ["RS256"]
 
+
+# ------------------------------------------------------------------------------------------------------------------
+# FE Test Data
+# TODO: Remove dummy test data and imports
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Reference: https://tutorial101.blogspot.com/2021/04/python-flask-upload-and-display-image.html
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+# ------------------------------------------------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------- OAUTH
 
@@ -178,29 +200,138 @@ def get_users():
 
 # ----------------------------------------------------------------------------- EXPERIENCES
 
-@app.route('/experiences')
+@app.route('/experiences', methods=['GET', 'POST'])
 def experiences():
+    # TODO: Replace dummy FE test stuff with endpoint code and logic.
+    experiences = dummy_test_experiences_data
+
+    user_info = dummy_user_info
+
+
     #user_id = session.get('profile')['sub']  #Temporarily commented out for FE dev
     jwt_token = session.get('jwt')  
-    return render_template('experiences.html', jwt=jwt_token)
+    return render_template('experiences.html', jwt=jwt_token, experiences=experiences, user_info=user_info)
+
+@app.route('/experience_view', methods=['GET', 'POST'])
+def experience_view():
+    # TODO: Replace dummy FE test stuff with endpoint code and logic.
+    user_info = dummy_user_info
+
+    if request.method == 'POST':
+        # check the name of the submit input: pin-experience or rate-experience
+        if 'pin-experience' in request.form:
+            print("Pinned experience")
+        elif 'rate-experience' in request.form:
+            print("Rated experience")
+
+        experienceId = request.form.get('experienceId')
+        userId = request.form.get('userId')
+        tripId = request.form.get('tripId')
+        userRating = request.form.get('userRating')
+        print("experienceId: ", experienceId)
+        print("tripId: ", tripId)
+        print("userId: ", userId)
+        print("userRating: ", userRating)
+
+        experience_data = dummy_test_experiences_data[int(experienceId)-1]
+
+        user_trips = dummy_test_user_trips
+
+        
+    jwt_token = session.get('jwt')  
+    return render_template('experience_view.html', jwt=jwt_token, experience=experience_data, trips=user_trips, user_info=user_info)
+
+@app.route('/experience_create', methods=['GET', 'POST'])
+def experience_create():
+
+    # TODO: Replace dummy FE test stuff with endpoint code and logic.
+    if request.method == 'POST':
+        experienceName = request.form.get('name')
+        experienceDescription = request.form.get('description')
+        experienceLocation = request.form.get('location')
+        experienceRating = request.form.get('rating')
+        
+        print("experienceName: ", experienceName)
+        print("experienceDescription: ", experienceDescription)
+        print("experienceLocation: ", experienceLocation)
+        print("experienceRating: ", experienceRating)
+        
+        # Handle image file form input
+        if 'image' in request.files:
+            file = request.files['image']
+            if file and allowed_file(file.filename):
+                filename = file.filename
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                print("File uploaded successfully")
+
+
+    #user_id = session.get('profile')['sub']  #Temporarily commented out for FE dev
+    jwt_token = session.get('jwt')  
+    return render_template('experience_create.html', jwt=jwt_token)
+
+@app.route('/unpin_experience', methods=['DELETE', 'POST'])
+def unpin_experience():
+    # TODO: Replace dummy FE test stuff with endpoint code and logic.
+    if request.method == 'POST':
+        tripId = request.form.get('tripId')
+        experienceId = request.form.get('experienceId')
+        print("tripId: ", tripId)
+        print("experienceId: ", experienceId)
+
+        trip_data = dummy_test_trip_data.get("trip"+tripId)
+        
+
+    jwt_token = session.get('jwt')  
+    return render_template('trip_edit.html', jwt=jwt_token, trip=trip_data)
 
 # ----------------------------------------------------------------------------- TRIPS
 
 @app.route('/trips', methods=['GET','POST'])
 def trips():
-    # TODO: Replace dummy test data with endpoint code and logic.
+    # TODO: Replace dummy FE test stuff with endpoint code and logic.
+    user_trips = dummy_test_user_trips
 
-    # Dummy test data for Front-End testing
-    user_trips = [
-        "Paris",
-        "Glacier National Park",
-        "Rome",
-        "Swiss Alps",
-        "Bora Bora",
-        "Maui",
-        "London, England",
-    ]
     #user_id = session.get('profile')['sub']  #Temporarily commented out for FE dev
+    jwt_token = session.get('jwt')  
+    return render_template('trips.html', jwt=jwt_token, trips=user_trips)
+
+#@app.route('/trip_experiences/<tripId>', methods=['GET'])
+@app.route('/trip_view', methods=['GET', 'POST'])
+def trip_view():
+    # TODO: Replace dummy FE test stuff with endpoint code and logic.
+    user_info = dummy_user_info
+
+    if request.method == 'GET':
+        tripId = request.args.get('tripId')
+
+        trip_data = dummy_test_trip_data.get("trip"+tripId)
+        
+
+    jwt_token = session.get('jwt')  
+    return render_template('trip_view.html', jwt=jwt_token, trip=trip_data, user_info=user_info)
+
+@app.route('/trip_edit', methods=['GET', 'POST'])
+def trip_edit():
+    # TODO: Replace dummy FE test stuff with endpoint code and logic.
+    user_info = dummy_user_info
+
+    if request.method == 'GET':
+        tripId = request.args.get('tripId')
+
+        trip_data = dummy_test_trip_data.get("trip"+tripId)
+
+
+    jwt_token = session.get('jwt')  
+    return render_template('trip_edit.html', jwt=jwt_token, trip=trip_data, user_info=user_info)
+
+@app.route('/trip_delete', methods=['GET', 'POST'])
+def trip_delete():
+    # TODO: Replace dummy FE test stuff with endpoint code and logic.
+    if request.method == 'POST':
+        tripId = request.form.get('tripId')
+
+        user_trips = dummy_test_user_trips
+
     jwt_token = session.get('jwt')  
     return render_template('trips.html', jwt=jwt_token, trips=user_trips)
 

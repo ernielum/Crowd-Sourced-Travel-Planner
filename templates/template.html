@@ -1,3 +1,10 @@
+<!-- 
+    This serves as the main base template for the majority of the HTML pages 
+
+    Defines: nav-bar in the header, footer
+
+-->
+
 <!doctype html>
 
 <html>
@@ -23,6 +30,11 @@
     </header>
     {% block content %}
     {% endblock %}
+
+    {% block footer %}
+    <footer>
+    </footer>
+    {% endblock footer %}
 
 </body>
 
