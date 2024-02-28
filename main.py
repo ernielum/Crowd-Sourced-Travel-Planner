@@ -180,7 +180,7 @@ def callback():
         })
         client.put(new_user)
 
-    return redirect('/user-info')
+    return redirect('/trips')
 
 @app.route('/user-info')
 def user_info():
@@ -188,6 +188,11 @@ def user_info():
     jwt_token = session.get('jwt')  
     #return render_template('userinfo.html', jwt=jwt_token, user_id=user_id, user_info=session.get('profile')) #Temporarily commented out for FE dev
     return render_template('userinfo.html', jwt=jwt_token, user_info=session.get('profile'))
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
 
 # ----------------------------------------------------------------------------- USERS
 
@@ -289,26 +294,49 @@ def unpin_experience():
 @app.route('/trips', methods=['GET','POST'])
 def trips():
     # TODO: Replace dummy FE test stuff with endpoint code and logic.
-    user_trips = dummy_test_user_trips
+    # user_trips = dummy_test_user_trips
 
-    #user_id = session.get('profile')['sub']  #Temporarily commented out for FE dev
+    user_id = session.get('profile')['sub']
     jwt_token = session.get('jwt')  
+
+    # Retrieve trip list for current user
+    if request.method == 'GET':
+        query = client.query(kind='Trip')
+        query.add_filter('user_id', '=', user_id)
+        user_trips = list(query.fetch())
+
+    # Add new trip to list for current user
+    if request.method == 'POST':
+
+        # Create new trip
+        new_trip_name = request.form['new_trip']
+        new_trip = datastore.Entity(client.key('Trip'))
+        new_trip.update({
+            'user_id': user_id,
+            'name': new_trip_name,
+        })
+        client.put(new_trip)
+
+        # Re-query trip list
+        query = client.query(kind='Trip')
+        query.add_filter('user_id', '=', user_id)
+        user_trips = list(query.fetch())
+
     return render_template('trips.html', jwt=jwt_token, trips=user_trips)
 
 #@app.route('/trip_experiences/<tripId>', methods=['GET'])
 @app.route('/trip_view', methods=['GET', 'POST'])
 def trip_view():
     # TODO: Replace dummy FE test stuff with endpoint code and logic.
-    user_info = dummy_user_info
+    user_info = session.get('profile')['sub']
 
     if request.method == 'GET':
         tripId = request.args.get('tripId')
-
-        trip_data = dummy_test_trip_data.get("trip"+tripId)
-        
+        trip_key = client.key('Trip', int(tripId))
+        trip = client.get(trip_key)
 
     jwt_token = session.get('jwt')  
-    return render_template('trip_view.html', jwt=jwt_token, trip=trip_data, user_info=user_info)
+    return render_template('trip_view.html', jwt=jwt_token, trip=trip, user_info=user_info)
 
 @app.route('/trip_edit', methods=['GET', 'POST'])
 def trip_edit():
@@ -327,12 +355,19 @@ def trip_edit():
 @app.route('/trip_delete', methods=['GET', 'POST'])
 def trip_delete():
     # TODO: Replace dummy FE test stuff with endpoint code and logic.
+    user_id = session.get('profile')['sub']
+    jwt_token = session.get('jwt') 
+
     if request.method == 'POST':
-        tripId = request.form.get('tripId')
+        tripId = request.form['delete-trip']
+        trip_key = client.key('Trip', int(tripId))
+        client.delete(trip_key)
 
-        user_trips = dummy_test_user_trips
-
-    jwt_token = session.get('jwt')  
+        # Re-query trip list
+        query = client.query(kind='Trip')
+        query.add_filter('user_id', '=', user_id)
+        user_trips = list(query.fetch())
+ 
     return render_template('trips.html', jwt=jwt_token, trips=user_trips)
 
 # -----------------------------------------------------------------------------

@@ -41,7 +41,8 @@
                     Edit Trip</button>
             </form>
             <form id="delete-trip" method="POST" action="/trip_delete">
-                <button class="button-container-button" name="delete-trip" id="tripId" value="{{trip.id}}">
+                <input type="hidden" name="delete-trip" value="{{ trip.id }}">
+                <button class="button-container-button" type ="submit">
                     Delete Trip</button>
             </form>
         </div>

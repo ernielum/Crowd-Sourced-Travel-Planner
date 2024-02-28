@@ -20,10 +20,10 @@
     <header>
         {% block nav %}
         <div class="nav">
-            <a href="{{ url_for('welcome') }}">Welcome</a>
             <a href="{{ url_for('trips') }}">Trips</a>
             <a href="{{ url_for('experiences') }}">Experiences</a>
             <a href="{{ url_for('user_info') }}">Profile</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
         </div>
         {% endblock nav %}
 
