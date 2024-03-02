@@ -275,20 +275,24 @@ def experience_create():
     jwt_token = session.get('jwt')  
     return render_template('experience_create.html', jwt=jwt_token)
 
-@app.route('/unpin_experience', methods=['DELETE', 'POST'])
-def unpin_experience():
-    # TODO: Replace dummy FE test stuff with endpoint code and logic.
-    if request.method == 'POST':
-        tripId = request.form.get('tripId')
-        experienceId = request.form.get('experienceId')
-        print("tripId: ", tripId)
-        print("experienceId: ", experienceId)
+@app.route('/experience_unpin', methods=['DELETE', 'POST'])
+def experience_unpin():
+  
+    # Get current tripId
+    tripId = request.form.get('tripId')
+    trip_key = client.key('Trip', int(tripId))
+    trip = client.get(trip_key)
 
-        trip_data = dummy_test_trip_data.get("trip"+tripId)
-        
+    # Get current experienceId
+    experienceId = request.form.get('experienceId')
+    experience_key = client.key('Experience', int(experienceId))
 
-    jwt_token = session.get('jwt')  
-    return render_template('trip_edit.html', jwt=jwt_token, trip=trip_data)
+    experiences = trip.get('experiences')
+    experiences.remove(experience_key)
+    trip['experiences'] = experiences
+    client.put(trip)
+
+    return redirect(url_for('trip_view', tripId=tripId))
 
 
 @app.route('/experience_pin', methods=['POST'])
@@ -327,10 +331,9 @@ def experience_pin():
     experiences = trip.get('experiences')
     experiences.append(experience_entity.key)
     trip['experiences'] = experiences
-    print(trip['experiences'])
     client.put(trip)
 
-    return jsonify({'message': 'Experience pinned successfully'}), 200
+    return redirect(url_for('trip_view', tripId=tripId))
 
 # ----------------------------------------------------------------------------- TRIPS
 

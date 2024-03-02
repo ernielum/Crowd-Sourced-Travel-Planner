@@ -65,6 +65,14 @@
 
             <tr>{% include 'experience_td.html' %}</tr>
 
+                <td class="td-unpin">
+                    <form class="unpin-form" id="unpin-experience" method="POST" action="/experience_unpin">
+                        <input type="hidden" id="tripId" name="tripId" value={{trip.id}} />
+                        <input type="hidden" id="experienceId" name="experienceId" value={{experience.id}} />
+                        <input class="small-button" type="submit" value="unpin">
+                    </form>
+                </td>
+
             {% endfor %}
         </table>
 

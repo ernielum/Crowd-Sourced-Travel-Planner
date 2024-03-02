@@ -70,7 +70,6 @@ function searchPlaces() {
 
 function pinExperience() {
   if (experience && tripId) {
-    // Here you can send an AJAX request to your Flask backend to save the search results
     fetch('/experience_pin', {
       method: 'POST',
       headers: {
@@ -92,7 +91,6 @@ function pinExperience() {
       console.error('Error:', error);
     });
   }
-
 }
 
 // Call initMap when the page has loaded
