@@ -468,3 +468,8 @@ input[type=submit].submit-experience-view:hover {
   height: auto;
   display: block;
 }
+
+#map {
+  width: 100%; /* Adjust as needed */
+  height: 400px; /* Adjust as needed */
+}

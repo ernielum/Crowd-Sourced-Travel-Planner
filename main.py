@@ -36,6 +36,7 @@ if ENV_FILE:
 
 app = Flask(__name__)
 app.secret_key = env.get("APP_SECRET_KEY")
+maps_key = env.get("GOOGLE_MAPS_KEY")
 
 client = datastore.Client()
 
@@ -238,11 +239,11 @@ def experience_view():
         print("userId: ", userId)
         print("userRating: ", userRating)
 
-        experience_data = dummy_test_experiences_data[int(experienceId)-1]
+        # experience_data = dummy_test_experiences_data[int(experienceId)-1]
 
-        user_trips = dummy_test_user_trips
+        # user_trips = dummy_test_user_trips
 
-        
+
     jwt_token = session.get('jwt')  
     return render_template('experience_view.html', jwt=jwt_token, experience=experience_data, trips=user_trips, user_info=user_info)
 
@@ -289,12 +290,52 @@ def unpin_experience():
     jwt_token = session.get('jwt')  
     return render_template('trip_edit.html', jwt=jwt_token, trip=trip_data)
 
+
+@app.route('/experience_pin', methods=['POST'])
+def experience_pin():
+    result = request.json
+
+    # Get current tripId
+    tripId = result['tripId']
+    trip_key = client.key('Trip', int(tripId))
+    trip = client.get(trip_key)
+
+    # Get experience details
+    experience = result['experience'][0]
+
+    # Check if there is already an entity for this experience
+    query = client.query(kind='Experience')
+    query.add_filter('place_id', '=', experience['place_id']) # place_id is uniquely provided by Place API
+    query_result = list(query.fetch())
+
+    # If experience is not registered, create new Experience entity
+    if query_result:
+        # Experience entity already exists, use the first result
+        experience_entity = query_result[0]
+    else:
+        # Create new Experience entity
+        new_experience = datastore.Entity(client.key('Experience'))
+        new_experience.update({
+            'name': experience['name'],
+            'address': experience['formatted_address'],
+            'place_id': experience['place_id']
+        })
+        client.put(new_experience)
+        experience_entity = new_experience
+
+    # Add entity to list of experiences for the trip
+    experiences = trip.get('experiences')
+    experiences.append(experience_entity.key)
+    trip['experiences'] = experiences
+    print(trip['experiences'])
+    client.put(trip)
+
+    return jsonify({'message': 'Experience pinned successfully'}), 200
+
 # ----------------------------------------------------------------------------- TRIPS
 
 @app.route('/trips', methods=['GET','POST'])
 def trips():
-    # TODO: Replace dummy FE test stuff with endpoint code and logic.
-    # user_trips = dummy_test_user_trips
 
     user_id = session.get('profile')['sub']
     jwt_token = session.get('jwt')  
@@ -314,6 +355,7 @@ def trips():
         new_trip.update({
             'user_id': user_id,
             'name': new_trip_name,
+            'experiences': []
         })
         client.put(new_trip)
 
@@ -327,7 +369,8 @@ def trips():
 #@app.route('/trip_experiences/<tripId>', methods=['GET'])
 @app.route('/trip_view', methods=['GET', 'POST'])
 def trip_view():
-    # TODO: Replace dummy FE test stuff with endpoint code and logic.
+
+    # Retrieve details of a specific trip.
     user_info = session.get('profile')['sub']
 
     if request.method == 'GET':
@@ -335,8 +378,14 @@ def trip_view():
         trip_key = client.key('Trip', int(tripId))
         trip = client.get(trip_key)
 
+        experiences = []
+
+        for experience_key in trip['experiences']:
+            experience = client.get(experience_key)
+            experiences.append(experience)
+
     jwt_token = session.get('jwt')  
-    return render_template('trip_view.html', jwt=jwt_token, trip=trip, user_info=user_info)
+    return render_template('trip_view.html', jwt=jwt_token, trip=trip, experiences=experiences, API_KEY=maps_key, user_info=user_info)
 
 @app.route('/trip_edit', methods=['GET', 'POST'])
 def trip_edit():
@@ -354,7 +403,7 @@ def trip_edit():
 
 @app.route('/trip_delete', methods=['GET', 'POST'])
 def trip_delete():
-    # TODO: Replace dummy FE test stuff with endpoint code and logic.
+
     user_id = session.get('profile')['sub']
     jwt_token = session.get('jwt') 
 
@@ -367,7 +416,9 @@ def trip_delete():
         query = client.query(kind='Trip')
         query.add_filter('user_id', '=', user_id)
         user_trips = list(query.fetch())
- 
+
+    # Return to trip list
+
     return render_template('trips.html', jwt=jwt_token, trips=user_trips)
 
 # -----------------------------------------------------------------------------
