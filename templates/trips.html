@@ -1,3 +1,12 @@
+<!-- 
+    This page displays a user's trips.
+
+    Actions:
+            - Create trip
+            - Select trip to view
+
+-->
+
 <!doctype html>
 
 <html>
@@ -18,20 +27,26 @@
     {% block content %}
 
     <main>
+        <br>
         <h2>My Trips</h2>
         <form id="new-trip" method="POST" action="/trips">
             <fieldset>
-                <input type="text" placeholder="New Trip" id="new_trip" required="required" />
-                <input type="submit" value="Add Trip">
+                <input type="text" placeholder="New Trip" id="new_trip" name="new_trip" required="required" />
+                <input type="submit" name="create-trip" value="Create Trip">
             </fieldset>
         </form>
         <table>
             <tr>
-                <th>Trips</th>
+                <th class="th-trip">Trips</th>
             </tr>
             {% for trip in trips %}
             <tr>
-                <td>{{ trip }}</td>
+                <td class="button-table-td">
+                    <form id="view-trip" method="GET" action="/trip_view">
+                        <button class="button-table-td-button" name="tripId" id="tripId" value="{{trip.id}}">
+                            {{ trip.name }}</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </table>

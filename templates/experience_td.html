@@ -1,0 +1,26 @@
+<!-- 
+    This serves as a template for displaying a list of experiences as a table <td> element.
+
+    Lists of experiences and details is implemented in multiple HTML pages.
+
+    Applicable to pages: experiences.html, trip_view.html, trip_edit.html
+
+    Defines: Experience <td> element of a table with experience details
+
+-->
+
+<td>
+    <div>
+        <form id="view-experience" method="POST" action="/experience_view">
+            <input type="hidden" id="experienceId" name="experienceId" value={{experience.id}} />
+            <input type="hidden" id="userId" name="userId" value={{user_info.id}} />
+            <input type="submit" class="submit-experience-view" value="{{ experience.name }}" />
+        </form>
+    </div>
+    <div class="rating-container">
+        <div class="rating-inline-block">Rating: {{ experience.avg_rating }} /5 </div>
+        <div class="rating-inline-block">My Rating: {{ experience.user_rating }} /5 </div>
+    </div>
+    <div class="location-container"> Location: {{ experience.location }} </div>
+    <div class="description-container"> {{ experience.description|truncate(250) }} </div>
+</td>

@@ -1,0 +1,85 @@
+<!-- 
+    This page displays a specific user's trip and lists pinned experiences.
+
+    Actions:
+            - Edit trip link
+            - Delete trip
+            - Search more experiences link
+            - Select Experience to view details
+
+-->
+
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Capstone: Crowd-sourced Travel App</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&libraries=places"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>Capstone: Crowd-sourced Travel App</h1>
+    </header>
+
+    {% extends "template.html" %}
+    {% block content %}
+
+    <main>
+
+        <div class="button-container">
+            <form id="edit-trip" method="GET" action="/trip_edit">
+                <button class="button-container-button" name="edit-trip" id="tripId" value="{{trip.id}}">
+                    Edit Trip</button>
+            </form>
+            <form id="delete-trip" method="POST" action="/trip_delete">
+                <button class="button-container-button" name="delete-trip" id="tripId" value="{{trip.id}}">
+                    Delete Trip</button>
+            </form>
+            
+        </div>
+
+        <div id="map"></div>
+
+        <h2>Plan Trip:</h2>
+
+        <div class="div-container">
+            <p>Add more experiences to your trip</p>
+            <p class="small-descriptor">View more Crowd-Sourced Experiences:</p>
+            <!-- <a href="{{ url_for('experiences') }}" class="button-link">Search More Experiences</a> -->
+            <input type="text" id="place-search" placeholder="Search for a place">
+            <button onclick="searchPlaces()">Search</button>
+            <button onclick="pinExperience()" id="pin-button" style="display: none;">Pin</button>
+        </div>
+        <br>
+
+        <table class="experiences-table">
+            <tr>
+                <th class="th-trip">{{ trip.name }}</th>
+            </tr>
+            {% for experience in experiences %}
+
+            <tr>{% include 'experience_td.html' %}</tr>
+
+                <td class="td-unpin">
+                    <form class="unpin-form" id="unpin-experience" method="POST" action="/experience_unpin">
+                        <input type="hidden" id="tripId" name="tripId" value={{trip.id}} />
+                        <input type="hidden" id="experienceId" name="experienceId" value={{experience.id}} />
+                        <input class="small-button" type="submit" value="unpin">
+                    </form>
+                </td>
+
+            {% endfor %}
+        </table>
+
+        {% endblock %}
+
+    </main>
+
+</body>
+
+</html>
