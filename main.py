@@ -42,7 +42,6 @@ client = datastore.Client()
 
 ALGORITHMS = ["RS256"]
 
-
 # ------------------------------------------------------------------------------------------------------------------
 # FE Test Data
 # TODO: Remove dummy test data and imports
@@ -335,6 +334,76 @@ def experience_pin():
 
     return redirect(url_for('trip_view', tripId=tripId))
 
+
+@app.route('/rate_experience', methods=['GET', 'POST'])
+def rate_experience():
+
+    user_id = session.get('profile')['sub']
+    jwt_token = session.get('jwt')  
+
+    # Retrieve Rating Form details
+    if request.method == 'POST':
+        experienceId = request.form.get('experienceId')
+        tripId = request.form.get('tripId')
+        rating = request.form.get('rating')
+
+        #----------------------------------
+        # Rating Entity
+        #
+        #----------------------------------
+
+        # Check if there is already a Rating entity for this user-experience rating
+        query = client.query(kind='Rating')
+        query.add_filter('user_id', '=', user_id)
+        query.add_filter('experienceId', '=', experienceId)
+
+        results = list(query.fetch())
+
+        # If user rating is not in db, create a new Rating entity
+        if not results: 
+            user_rating = datastore.Entity(client.key('Rating'))
+            user_rating.update({
+                'experienceId': experienceId,
+                'user_id': user_id,
+                'rating': rating,
+            })
+        # If user rating already exists, update it
+        else:
+            user_rating = results[0]
+            user_rating.update({
+                'rating': rating,
+            })
+
+        client.put(user_rating)
+
+        #----------------------------------
+        # Calculate Average Rating of Experience
+        #
+        #----------------------------------
+        query = client.query(kind='Rating')
+        query.add_filter('experienceId', '=', experienceId)
+        ratings = list(query.fetch())
+
+        if not ratings:
+            return jsonify({"message": "No ratings found"}), 404
+        avg_rating = sum([int(r['rating']) for r in ratings]) / len(ratings)
+        avg_rating = round(avg_rating)
+
+        #----------------------------------
+        # Update Experience Entity
+        #
+        #----------------------------------
+        experience_key = client.key('Experience', int(experienceId))
+        experience = client.get(key=experience_key)
+        if not experience:
+            return jsonify({"error": "Experience not found"}), 404
+        experience.update({
+            'avg_rating': avg_rating,
+        })
+        client.put(experience)
+
+    return redirect(url_for('trip_view', tripId=tripId))
+
 # ----------------------------------------------------------------------------- TRIPS
 
 @app.route('/trips', methods=['GET','POST'])
@@ -387,8 +456,35 @@ def trip_view():
             experience = client.get(experience_key)
             experiences.append(experience)
 
+        #----------------------------------
+        # Get My Ratings
+        #
+        #----------------------------------
+        my_ratings = []
+        # Check if there is a Rating entity for this user-experience rating
+        for experience in trip['experiences']:
+            query = client.query(kind='Rating')
+            query.add_filter('user_id', '=', user_info)
+            query.add_filter('experienceId', '=', str(experience.id))
+            
+            results = list(query.fetch())
+
+            if results:
+                my_ratings.append(results[0])
+
+        experience_and_rating_data = []
+
+        for experience in experiences:
+            experience_data = {'experience': experience, 'my_rating': ""}
+            for rating in my_ratings:
+                if rating['experienceId'] == str(experience.id):
+                    experience_data['my_rating'] = rating['rating']
+
+            experience_and_rating_data.append(experience_data)
+
     jwt_token = session.get('jwt')  
-    return render_template('trip_view.html', jwt=jwt_token, trip=trip, experiences=experiences, API_KEY=maps_key, user_info=user_info)
+    # return render_template('trip_view.html', jwt=jwt_token, trip=trip, experiences=experiences, API_KEY=maps_key, user_info=user_info)
+    return render_template('trip_view.html', jwt=jwt_token, trip=trip, experiences=experience_and_rating_data, API_KEY=maps_key, user_info=user_info)
 
 @app.route('/trip_edit', methods=['GET', 'POST'])
 def trip_edit():
