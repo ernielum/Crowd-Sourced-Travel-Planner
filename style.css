@@ -1,0 +1,477 @@
+/*   ----- Imports  -----  */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Voltaire&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+/*   ----- Variables  -----  */
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --dark: #1e425b;
+  --medium: #316f9b;
+  --light: #54acea;;
+  --gray: #464646;
+}
+
+/*  ----- Viewport ----- elements inherited by all remaining elements ----- */
+body {
+  /* Can alternatively define in html {} or :root {} */
+  background-attachment: fixed;
+  background-color: var(--white);
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0%;
+  padding: 0%;
+  max-width: 100%;
+  color: var(--white);
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.2;
+}
+
+/*  ----- Page layout blocks -----  */
+header,
+footer {
+  background-color: var(--white);
+  color: var(--white);
+  
+}
+
+header {
+  background-color: var(--white);
+  position: relative; /* Add this line */
+  z-index: 10; 
+  text-align: left;
+  padding: 5pt;
+  padding-left: 20pt;
+  margin-left: 0pt; 
+  margin-right: 0pt;
+  box-shadow: 0 4px 4px rgba(0,0,0,0.2); /* Made shadow more visible */
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Ensure the container spans the full width */
+}
+
+.sign-in-link {
+  text-decoration: none; /* Removes underline from links */
+  margin-right: 20pt;
+  color: var(--black);
+  font-weight: 600;
+  font-size: 20px; 
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Adjust the gap as needed */
+  text-decoration: none; /* Example style to improve appearance */
+}
+
+.header-container .sign-in-link:hover {
+  color: var(--medium);
+  transition: color 0.3s ease; /* Smooth transition effect */
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+  font-size: 48px !important; /* Increase the font size as needed */
+}
+
+footer {
+  text-align: center;
+  width: 100%;
+  margin: 0pt;
+}
+
+main {
+  background-color: var(--dark);
+  color: var(--white);
+  margin: 0%;
+  padding: 3%;
+  text-align: center;
+  
+}
+
+/* ----- Anchors ----- Text links */
+/*a {}
+a:link {}
+a:hover {}
+a:active {}
+a:visited {}
+*/
+
+/*  ----- Navigation ----- Override text links for navigation only.  */
+/* Style the MAIN nav bar */
+/* Style the entire nav bar */
+.nav {
+  display: flex;
+  background-color: var(--white);
+}
+
+/* Style the individual links inside the nav bar */
+.nav a {
+  font-family: "Jost", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  display: inline-block;
+  padding: 5pt;
+  margin-right: 50px;
+  margin-top: -10px;
+  margin-bottom: 5px;
+  color: var(--black);
+  font-size: calc(.4rem + 1vw);
+  text-decoration: none;
+}
+
+/* Style the hover state of the individual links */
+.nav a:hover {
+  border: 3px solid var(--medium);
+  color: var(--medium);
+  border-radius: 0;
+}
+
+/* Style the LOCAL nav bar */
+.local-nav {
+  display: flex;
+}
+
+.local-nav a {
+  display: inline-block;
+  padding: 0px;
+  margin: 0px;
+  color: var(--black);
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.local-nav a:hover {
+  color: var(--medium-red);
+}
+
+/*  -----  Typography  ----- */
+h1 {
+  font-family: "Voltaire", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase; /* Converts text to all caps */
+  color: var(--black);
+  font-size: 4vw;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Jost", sans-serif;
+  font-size: 3vw;
+}
+
+h2 {
+  color: var(--black);
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+h2 {
+  color: var(--white);
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+h4,
+h5,
+h6 {
+  color: var(--medium-red);
+}
+
+
+/*  -----  Forms and Fieldsets  ----- */
+fieldset {
+  border: none;
+}
+
+input {
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 17px;
+  border: 2px solid var(--dark);
+}
+
+/* submit button */
+input[type="submit"] {
+  background-color: var(--dark);
+  color: var(--white);
+}
+
+/* submit button - hover effect */
+input[type="submit"]:hover {
+  background-color: var(--light);
+}
+
+/* Main content layout for trips.html ---------------------------------------------------------------------------*/
+
+/* Ensures the search icon is fixed inside the left edge of the search bar */
+.search-bar-container {
+  position: relative; /* Contains the icon absolutely within this container */
+  width: 50%; /* Match the input width or adjust to your preference */
+  display: block; /* Changed from flex to block for better control over child positioning */
+  margin: 0 auto; /* Center the container if desired */
+}
+
+.search-bar-container .material-icons-outlined {
+  position: absolute;
+  left: 10px; /* Fine-tune based on actual padding of the input */
+  top: 50%; /* Aligns icon vertically */
+  transform: translateY(-50%); /* Centers the icon vertically */
+  color: var(--black); /* Change the icon color to black */
+  z-index: 3; /* Ensure it's above the input field visually */
+}
+
+.search-bar-container input[type="text"] {
+  width: 100%; /* Ensures the input fills the container */
+  padding: 10px 20px 10px 40px; /* Adjust left padding to not overlap icon */
+  border-radius: 20px;
+  border: 2px solid var(--gray); /* Use your color variable or a specific color */
+  font-size: 17px;
+  background-color: var(--white); /* Ensure input background matches design */
+  color: var(--dark); /* Text color */
+  position: relative; /* Ensure stacking context is correct */
+}
+
+/* Additional adjustments to ensure visual consistency */
+input[type="text"]::placeholder {
+  color: var(--gray); /* Placeholder text color */
+}
+
+html, body {
+  height: 100%; /* Ensure the body takes full viewport height */
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  /* Keep your current styles, and add */
+  flex: 0 1 auto; /* Header size based on its content */
+}
+
+main {
+  /* Keep your current styles, and add */
+  flex: 1 1 auto; /* Main content takes up the remaining space */
+}
+
+footer {
+  /* Adjust footer styles */
+  flex: 0 1 40px; /* Set a fixed height for the footer */
+  text-align: center;
+  padding: 10px; /* Adjust padding to manage height */
+  font-size: 0.8em; /* Adjust font size as needed */
+  width: 100%;
+}
+
+/* Adjusting the trip container appearance */
+.trip {
+  background-color: var(--white); /* Set the background to white */
+  color: var(--black); /* Text color is black for contrast (will change on hover) */
+  width: calc(100px + 13vw); /* Adjust width as needed, making it responsive */
+  height: calc(80px + 8vw); /* Set height slightly less than width for the desired aspect ratio */
+  margin: 10px; /* Add some space between the trip rectangles */
+  display: flex; /* Use flexbox for centering contents */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  border-radius: 0px; /* Make edges sharp */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.trip-button {
+  background-color: transparent; /* Remove any background to show the trip container color */
+  color: inherit; /* Inherit color from the parent container */
+  border: none; /* Remove button border */
+  font-size: calc(2rem + 1.2vw); /* Increase and make responsive font size */
+  font-weight: bold; /* Make the text bold */
+  text-align: center; /* Center text */
+  width: 100%; /* Ensure it fills its container */
+  cursor: pointer; /* Change cursor to indicate clickable */
+  font-family: "Voltaire", sans-serif; /* Specify the font family */
+  font-weight: 400; /* Normal font weight as specified */
+  font-style: normal; /* Normal font style */
+  text-transform: uppercase; /* Converts text to all caps */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Ensure smooth transition */
+  white-space: nowrap; /* Prevents the text from wrapping */
+  overflow: hidden; /* Hides overflow */
+  text-overflow: ellipsis; /* Adds an ellipsis to indicate hidden text */
+  padding: 15px 20px;
+}
+
+.trip:hover {
+  background-color: var(--black); /* Box turns black on hover */
+  color: var(--white); /* Text turns white on hover */
+}
+
+.trip:hover .trip-button {
+  color: inherit; /* Ensure the button text color inherits from the parent on hover */
+}
+
+/* Main content layout for trip_view.html ---------------------------------------------------------*/
+.trip-view-page main {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  height: calc(100vh - 60px); /* Adjust based on your header height */
+  background-color: var(--dark);
+  padding: 0; /* Remove padding to allow the map to fill up main */
+}
+
+.trip-view-page #map {
+  background-color: lightblue; /* Placeholder for actual map */
+  flex-grow: 1;
+  width: 100%; /* Ensure it covers the full width of the container */
+  height: 100%; /* Adjust based on actual map implementation */
+  z-index: 1;
+}
+
+.trip-view-page .experiences-table {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background-color: var(--white);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 2; /* Ensure table is above the map */
+  width: 25%; /* Set width to a fourth of the page */
+  max-height: 80%; /* Adjust based on your preference */
+  overflow-y: auto; /* Allows scrolling if content exceeds max-height */
+}
+
+.trip-view-page .search-bar-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2; /* Ensure search bar is above the map */
+  display: flex;
+  align-items: center;
+  width: 25%; /* Set width to a fourth of the page */
+  background-color: transparent; /* Matches the trips page search bar */
+}
+
+.trip-view-page #experience-search {
+  width: 100%; /* Ensures the input fills the search bar container */
+  border: 2px solid var(--gray); /* Consistent with the trips page search bar */
+  border-radius: 20px;
+  font-size: 1rem;
+}
+
+.trip-view-page .material-icons-outlined {
+  position: absolute;
+  left: 10px;
+  color: var(--black); /* Icon color */
+}
+
+.trip-view-page .search-bar-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  width: 40%; /* Adjust as needed */
+  background-color: transparent;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Light shadow */
+  border-radius: 20px;
+}
+
+.trip-view-page .search-bar-container .material-icons-outlined {
+  position: absolute;
+  left: 0; /* Align icon inside the search bar's boundary */
+  top: 50%;
+  transform: translateY(-50%);
+  padding-left: 10px; /* Provide some padding inside the container */
+  z-index: 3;
+  color: var(--black);
+  font-size: 24px; /* Adjust the icon size as needed */
+}
+
+.trip-view-page .search-bar-container input[type="text"] {
+  width: 100%;
+  padding: 10px 10px 10px 40px; /* Adjust left padding to prevent overlap with the icon */
+  border: 2px solid var(--gray);
+  border-radius: 20px;
+  font-size: 1rem;
+  background-color: var(--white);
+  color: var(--black);
+  outline: none;
+}
+
+/* Experiences Table Styling */
+.trip-view-page .experiences-table {
+  width: 30%; /* Adjust width as needed */
+  background-color: var(--white); /* Set table background to white */
+  border-collapse: separate; /* Use 'separate' to control cell spacing */
+  border-spacing: 0; /* Remove space between cells */
+  margin: 10px 0; /* Add some top and bottom margin */
+  border-radius: 0; /* Ensure edges are not rounded */
+  box-shadow: 0 4px 4px rgba(0,0,0,0.2);
+  z-index: 2;
+}
+
+.trip-view-page .experiences-table th {
+  text-align: center;
+  font-family: "Voltaire", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+  font-size: 2.5vw;
+  color: var(--black);
+  padding: 5pt;
+  padding-top: 10pt;
+  padding-bottom: 10pt;
+  box-shadow: 0 3px 3px rgba(0,0,0,0.1);
+}
+
+.trip-view-page .experiences-table td {
+  text-align: left;
+  font-family: "Voltaire", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--black);
+  padding: 10pt;
+  padding-top: 15pt;
+  padding-bottom: 15pt;
+  font-size: 1.5vw;
+  box-shadow: 0 3px 3px rgba(0,0,0,0.1);
+}
+
+/* Search button styling */
+.trip-view-page .search-bar-container button {
+  background-color: var(--dark);
+  color: var(--white);
+  border: none;
+  border-radius: 20pt;
+  padding: 10px 10px; /* Increase padding for a larger button */
+  display: flex; /* Use flexbox */
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px; /* Adjust the font size */
+  font-weight: bold; /* Make the text bold */
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: 5pt;
+}
+
+/* Search button hover effect */
+.trip-view-page .search-bar-container button:hover {
+  background-color: var(--white);
+  color: var(--dark);
+  border: 2px solid var(--dark);
+  border-radius: 20pt;
+}
