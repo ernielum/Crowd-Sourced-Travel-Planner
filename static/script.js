@@ -41,30 +41,30 @@ function searchPlaces() {
 
   var service = new google.maps.places.PlacesService(map);
 
-  service.findPlaceFromQuery(request, function(results, status) {
-      if (status === google.maps.places.PlacesServiceStatus.OK && results && results.length) {
-      
-        experience = results
+  service.findPlaceFromQuery(request, function (results, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK && results && results.length) {
 
-        var location = results[0].geometry.location;
-        map.setCenter(location);
-        map.setZoom(16);
+      experience = results
 
-        // Content to be displayed in infowindow
-        var content = '<strong>' + results[0].name + '</strong><br>';
-        content += results[0].formatted_address + '<br>';
+      var location = results[0].geometry.location;
+      map.setCenter(location);
+      map.setZoom(16);
 
-        // Open the info window at the found location
-        infoWindow.setContent(content);
-        infoWindow.setPosition(location);
-        infoWindow.open(map);
+      // Content to be displayed in infowindow
+      var content = '<strong>' + results[0].name + '</strong><br>';
+      content += results[0].formatted_address + '<br>';
 
-        // Show pin button after search
-        document.getElementById('pin-button').style.display = 'block';
+      // Open the info window at the found location
+      infoWindow.setContent(content);
+      infoWindow.setPosition(location);
+      infoWindow.open(map);
 
-      } else {
-          console.error('Place search failed:', status);
-      }
+      // Show pin button after search
+      document.getElementById('pin-button').style.display = 'block';
+
+    } else {
+      console.error('Place search failed:', status);
+    }
   });
 }
 
@@ -77,24 +77,24 @@ function pinExperience() {
       },
       body: JSON.stringify({ tripId: tripId, experience: experience })
     })
-    .then(response => {
-      if (response.ok) {
-        console.log('Experience pinned successfully');
-        // Hide the pin button after successful pinning
-        document.getElementById('pin-button').style.display = 'none';
-        location.reload();
-      } else {
-        console.error('Failed to pin experience:', response.statusText);
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+      .then(response => {
+        if (response.ok) {
+          console.log('Experience pinned successfully');
+          // Hide the pin button after successful pinning
+          document.getElementById('pin-button').style.display = 'none';
+          location.reload();
+        } else {
+          console.error('Failed to pin experience:', response.statusText);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   }
 }
 
 // Call initMap when the page has loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   initMap();
   tripId = document.getElementById('tripId').value;
 });

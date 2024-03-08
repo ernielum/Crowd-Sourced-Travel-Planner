@@ -12,15 +12,38 @@
 <td>
     <div>
         <form id="view-experience" method="POST" action="/experience_view">
-            <input type="hidden" id="experienceId" name="experienceId" value={{experience.id}} />
+            <input type="hidden" id="experienceId" name="experienceId" value={{experience_data.experience.id}} />
             <input type="hidden" id="userId" name="userId" value={{user_info.id}} />
-            <input type="submit" class="submit-experience-view" value="{{ experience.name }}" />
+            <input type="submit" class="submit-experience-view" value="{{ experience_data.experience.name }}" />
         </form>
     </div>
     <div class="rating-container">
-        <div class="rating-inline-block">Rating: {{ experience.avg_rating }} /5 </div>
-        <div class="rating-inline-block">My Rating: {{ experience.user_rating }} /5 </div>
+        <div class="rating-inline-block">Rating: {{ experience_data.experience.avg_rating }} /5 </div>
+        <div class="rating-inline-block">
+            <form class="experience-view-form" id="rate-experience" method="POST" action="/rate_experience">
+                <fieldset>
+                    <input type="hidden" id="experienceId" name="experienceId"
+                        value={{experience_data.experience.id}} />
+                    <input type="hidden" id="userId" name="userId" value={{user_info.id}} />
+                    <input type="hidden" id="tripId" name="tripId" value={{trip.id}} />
+
+                    <label for="rating">My Rating </label>
+                    <select class="rating-field" id="rating" name="rating">
+                        <option value="" {% if experience_data.my_rating=="" %}selected{% endif %}></option>
+                        <option value="1" {% if experience_data.my_rating=="1" %}selected{% endif %}>1 Star</option>
+                        <option value="2" {% if experience_data.my_rating=="2" %}selected{% endif %}>2 Stars</option>
+                        <option value="3" {% if experience_data.my_rating=="3" %}selected{% endif %}>3 Stars</option>
+                        <option value="4" {% if experience_data.my_rating=="4" %}selected{% endif %}>4 Stars</option>
+                        <option value="5" {% if experience_data.my_rating=="5" %}selected{% endif %}>5 Stars</option>
+                    </select>
+
+                    <input class="small-button" type="submit" name="rate-experience" value="rate">
+
+                </fieldset>
+            </form>
+
+        </div>
     </div>
-    <div class="location-container"> Location: {{ experience.location }} </div>
-    <div class="description-container"> {{ experience.description|truncate(250) }} </div>
+    <div class="location-container"> Location: {{ experience_data.experience.address }} </div>
+    <div class="description-container"> {{ experience_data.experience.description|truncate(250) }} </div>
 </td>
