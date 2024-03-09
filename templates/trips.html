@@ -16,31 +16,42 @@
     <title>Capstone: Crowd-sourced Travel App</title>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined">
 </head>
 
 <body>
     <header>
-        <h1>Capstone: Crowd-sourced Travel App</h1>
+        <div class="header-container">
+          <h1>CROWD-sourced Travel App</h1>
+          <a href="/logout" class="sign-in-link">
+            Log Out
+            <span class="material-symbols-outlined">account_circle</span>
+          </a>
+        </div>
+        <!-- Navigation Links -->
+        <div class="nav">
+          <a href="{{ url_for('user_info') }}">My Profile</a>
+        </div>
     </header>
 
-    {% extends "template.html" %}
-    {% block content %}
-
     <main>
-        <br>
-        <h2>My Trips</h2>
-        <form id="new-trip" method="POST" action="/trips">
-            <fieldset>
-                <input type="text" placeholder="New Trip" id="new_trip" name="new_trip" required="required" />
-                <input type="submit" name="create-trip" value="Create Trip">
-            </fieldset>
+        <!-- Destination Search Bar -->
+        <form id="search-destinations" method="POST" action="/trips">
+            <div class="search-bar-container">
+                <span class="material-icons-outlined">search</span>
+                <input type="text" placeholder="Search Destinations" id="new_trip" name="new_trip" required="required" />
+                <input type="submit" name="create-trip" value="Create Trip" class="create-trip-button" >
+            </div>
         </form>
-        <table>
-            <tr>
-                <th class="th-trip">Trips</th>
-            </tr>
+        <br>
+
+        <h2>My Trips</h2>
+
+        <!-- Trip Buttons -->
+        <table class="button-table">
             {% for trip in trips %}
-            <tr>
+            <tr class="button-row">
                 <td class="button-table-td">
                     <form id="view-trip" method="GET" action="/trip_view">
                         <button class="button-table-td-button" name="tripId" id="tripId" value="{{trip.id}}">
@@ -50,9 +61,8 @@
             </tr>
             {% endfor %}
         </table>
-    </main>
 
-    {% endblock %}
+    </main>
 </body>
 
 </html>
