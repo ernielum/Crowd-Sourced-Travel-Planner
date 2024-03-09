@@ -1,19 +1,15 @@
 /*   ----- Imports  -----  */
-@import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&family=Roboto+Condensed&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
-@import 'node_modules/modern-normalize/modern-normalize.css';
-/* npm install modern-normalize
-      Resets elements for browser consistency.  
-      https://www.npmjs.com/package/modern-normalize
-    */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Voltaire&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
 
 /*   ----- Variables  -----  */
 :root {
   --white: #ffffff;
   --black: #000000;
-  --dark-red: #ad393d;
-  --medium-red: #c74e52;
-  --light-red: #ec7377;
+  --dark: #1e425b;
+  --medium: #316f9b;
+  --light: #54acea;;
   --gray: #464646;
 }
 
@@ -21,55 +17,111 @@
 body {
   /* Can alternatively define in html {} or :root {} */
   background-attachment: fixed;
-  background-color: var(--black);
+  background-color: var(--white);
   background-position: top left;
   background-repeat: no-repeat;
   background-size: cover;
   margin: 0%;
   padding: 0%;
   max-width: 100%;
-  color: var(--black);
+  color: var(--white);
   font-family: 'Roboto', sans-serif;
-  /* Define with at least one font name and its related generic family name.*/
   line-height: 1.2;
 }
 
 /*  ----- Page layout blocks -----  */
 header,
 footer {
-  background-color: var(--black);
+  background-color: var(--white);
   color: var(--white);
-
+  
 }
 
 header {
-  text-align: center;
-  padding: .5%;
-  margin-top: 1%;
-  margin-bottom: -.5%;
+  background-color: var(--white);
+  position: relative; /* Add this line */
+  z-index: 10; 
+  text-align: left;
+  padding: 5pt;
+  padding-left: 20pt;
+  margin-left: 0pt; 
+  margin-right: 0pt;
+  box-shadow: 0 4px 4px rgba(0,0,0,0.2); /* Made shadow more visible */
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Ensure the container spans the full width */
+}
+
+.sign-in-link {
+  text-decoration: none; /* Removes underline from links */
+  margin-right: 20pt;
+  color: var(--black);
+  font-weight: 600;
+  font-size: 20px; 
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Adjust the gap as needed */
+  text-decoration: none; /* Example style to improve appearance */
+}
+
+.header-container .sign-in-link:hover {
+  color: var(--medium);
+  transition: color 0.3s ease; /* Smooth transition effect */
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+  font-size: 48px !important; /* Increase the font size as needed */
 }
 
 footer {
   text-align: center;
-  padding: 1%;
-  bottom: 0;
   width: 100%;
+  margin: 0pt;
 }
 
 main {
-  background-color: var(--white);
-  color: var(--black);
-  position: relative;
+  background-color: var(--dark);
+  color: var(--white);
   margin: 0%;
   padding: 3%;
+  text-align: center;
+  
 }
 
-.div-container-visible {
-  display: inline-block;
-  border: 1px solid lightgrey;
-  margin-bottom: 20px;
+html, body {
+  height: 100%; /* Ensure the body takes full viewport height */
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
+header {
+  /* Keep your current styles, and add */
+  flex: 0 1 auto; /* Header size based on its content */
+}
+
+main {
+  /* Keep your current styles, and add */
+  flex: 1 1 auto; /* Main content takes up the remaining space */
+}
+
+footer {
+  /* Adjust footer styles */
+  flex: 0 1 40px; /* Set a fixed height for the footer */
+  text-align: center;
+  padding: 10px; /* Adjust padding to manage height */
+  font-size: 0.8em; /* Adjust font size as needed */
+  width: 100%;
+}
 
 /* ----- Anchors ----- Text links */
 /*a {}
@@ -84,25 +136,29 @@ a:visited {}
 /* Style the entire nav bar */
 .nav {
   display: flex;
-  justify-content: center;
-  background-color: var(--black);
+  background-color: var(--white);
 }
 
 /* Style the individual links inside the nav bar */
 .nav a {
+  font-family: "Jost", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
   display: inline-block;
-  padding: 5px 2vw;
-  margin: 10px;
-  margin-bottom: 10px;
-  color: var(--white);
+  padding: 5pt;
+  margin-right: 50px;
+  margin-top: -10px;
+  margin-bottom: 5px;
+  color: var(--black);
   font-size: calc(.4rem + 1vw);
   text-decoration: none;
 }
 
 /* Style the hover state of the individual links */
 .nav a:hover {
-  border: 3px solid var(--white);
-  color: var(--white);
+  border: 3px solid var(--medium);
+  color: var(--medium);
   border-radius: 0;
 }
 
@@ -125,10 +181,13 @@ a:visited {}
 }
 
 /*  -----  Typography  ----- */
-
 h1 {
-  font-family: 'Julius Sans One', sans-serif;
-  font-size: calc(.5rem + 2vw);
+  font-family: "Voltaire", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase; /* Converts text to all caps */
+  color: var(--black);
+  font-size: 4vw;
 }
 
 h2,
@@ -136,340 +195,512 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: "Jost", sans-serif;
+  font-size: 3vw;
 }
 
 h2 {
-  /* color: var(--dark-red); */
-  color: rgb(6, 53, 141);
+  color: var(--black);
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 
-h3,
+h2 {
+  color: var(--white);
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
 h4,
 h5,
 h6 {
-  /* color: var(--medium-red); */
-  color: rgb(112, 167, 212);
+  color: var(--medium-red);
 }
 
-.small-descriptor {
-  font-size: small;
-}
 
-/*  -----  Tables  ----- */
-table {
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 10px;
-  overflow: hidden;
-  width: 50%;
-}
-
-th,
-td {
-  /*border: 1px solid #dddddd;*/
-  border-radius: 3px;
-  overflow: hidden;
-  padding: 8px;
-}
-
-th {
-  background-color: lightgrey;
-  color: rgb(46, 46, 46);
-  text-align: center;
-  font-size: calc(.5rem + 1.3vw);
-}
-
-.th-trip {
-  background-color: rgb(154, 241, 230);
-}
-
-td {
-  background-color: var(--white);
-  border: 1px solid lightgrey;
-}
-
-.td-unpin {
-  border: none;
-}
-
-.experiences-table {
-  width: 73%;
-}
-
-.rating-container {
-  padding-top: 4px;
-  padding-bottom: 6px;
-  padding-left: 8px;
-}
-
-.rating-inline-block {
-  display: inline-block;
-  padding-right: 20px;
-}
-
-.location-container {
-  padding-bottom: 6px;
-  padding-left: 8px;
-}
-
-.description-container {
-  padding-bottom: 6px;
-  padding-top: 6px;
-  padding-left: 8px;
-}
-
-/*  -----  Forms, Fieldsets, and Buttons  ----- */
+/*  -----  Forms and Fieldsets  ----- */
 fieldset {
   border: none;
-}
-
-select {
-  border-radius: 10px;
-  padding: 10px;
-  background-color: var(--white);
-  font-size: 17px;
-  border: 1px solid lightgrey;
 }
 
 input {
   border-radius: 10px;
   padding: 10px;
   font-size: 17px;
-  /* border: 2px solid var(--dark-red); */
-  border: 1px solid rgb(20, 67, 99);
-}
-
-
-input[type="file"] {
-  padding: 8px;
-  margin-bottom: 20px;
-  border: 1px solid lightgrey;
+  border: 2px solid var(--dark);
 }
 
 /* submit button */
 input[type="submit"] {
-  border: 2px solid rgb(20, 67, 99);
-  background-color: rgb(228, 241, 250);
-  color: rgb(20, 67, 99);
+  background-color: var(--white);
+  color: var(--dark);
 }
 
 /* submit button - hover effect */
 input[type="submit"]:hover {
-  background-color: rgb(202, 229, 247);
-}
-
-button {
-  border-radius: 10px;
-  padding: 10px;
-  font-size: 17px;
-  border: 2px solid rgb(20, 67, 99);
-  background-color: rgb(228, 241, 250);
-  color: rgb(20, 67, 99);
-}
-
-button:hover {
-  background-color: rgb(202, 229, 247);
-}
-
-.small-button {
-  padding: 6px;
-}
-
-.button-link {
-  border-radius: 10px;
-  padding: 10px;
-  font-size: 17px;
-  text-decoration: none;
-  border: 2px solid rgb(59, 153, 140);
-  background-color: var(--white);
-  color: rgb(20, 99, 90);
-  cursor: pointer;
-}
-
-.button-link:hover {
-  background-color: var(--white);
-  cursor: pointer;
-}
-
-/* Trip_edit unpin form */
-.unpin-form {
-  width: auto;
-}
-
-/* View Experience form */
-.experience-view-form {
-  width: 320px;
-  margin: 0;
-}
-
-/* Experiences search form */
-.exerpience-search-form {
-  width: 73%;
-  margin: 0 auto;
-  margin-left: 15%;
-  padding-bottom: 10px;
-}
-
-.experience-search-input {
-  width: 70%;
-  border-radius: 10px;
-  padding: 10px;
-  font-size: 17px;
-  border: 1px solid lightgrey;
-}
-
-/* Experience Create form */
-.exerpience-create-form {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.create-experience-label {
-  font-size: 17px;
-  display: inline-block;
-  width: 100px;
-  padding-bottom: 5px;
-}
-
-.name-form-field {
-  width: 80%;
-  padding: 8px;
-  margin-bottom: 20px;
-}
-
-textarea {
-  width: 80%;
-  padding: 8px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  font-size: 17px;
-  font-family: 'Roboto', sans-serif;
-  border: 1px solid lightgrey;
-  vertical-align: top;
-}
-
-.location-field {
-  width: 50%;
-  border-radius: 10px;
-  padding: 8px;
-  margin-bottom: 20px;
-  font-size: 17px;
-  border: 1px solid lightgrey;
-}
-
-.create-experience-rating {
-  border-radius: 10px;
-  padding: 8px;
-  margin-bottom: 20px;
-  font-size: 17px;
-  border: 1px solid lightgrey;
-}
-
-/* View Experience form */
-.pin-experience-label {
-  padding-right: 5px;
-}
-
-.rating-field {
-  border-radius: 10px;
-  padding: 8px;
-  font-size: 17px;
-  border: 1px solid lightgrey;
-}
-
-
-/* Button Table */
-.button-table-td {
-  background-color: rgb(238, 250, 249);
-  border: 1px solid lightgrey;
+  background-color: var(--dark);
   color: var(--white);
-  padding: 0px;
+}
+
+/* Main content layout for trips.html ---------------------------------------------------------------------------*/
+
+.search-bar-container {
+  position: relative; /* Contains the icon absolutely within this container */
+  width: 50%; /* Match the input width or adjust to your preference */
+  display: block; /* Changed from flex to block for better control over child positioning */
+  margin: 0 auto; /* Center the container if desired */
+}
+
+.search-bar-container .material-icons-outlined {
+  position: absolute;
+  left: 10px; /* Fine-tune based on actual padding of the input */
+  top: 50%; /* Aligns icon vertically */
+  transform: translateY(-50%); /* Centers the icon vertically */
+  color: var(--black); /* Change the icon color to black */
+  z-index: 3; /* Ensure it's above the input field visually */
+}
+
+.search-bar-container input[type="text"] {
+  width: 100%; /* Ensures the input fills the container */
+  padding: 10px 20px 10px 40px; /* Adjust left padding to not overlap icon */
+  border-radius: 20px;
+  border: 2px solid var(--gray); /* Use your color variable or a specific color */
+  font-size: 17px;
+  background-color: var(--white); /* Ensure input background matches design */
+  color: var(--dark); /* Text color */
+  position: relative; /* Ensure stacking context is correct */
+}
+
+/* Additional adjustments to ensure visual consistency */
+input[type="text"]::placeholder {
+  color: var(--gray); /* Placeholder text color */
+}
+
+/* Table styling to match the .trip containers */
+table {
+  width: 100%; /* Full width */
+  border-collapse: collapse; /* Removes the space between borders */
+}
+
+th, td {
+  padding: 0; /* Removes padding */
+}
+
+.button-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.button-table-td {
+  max-width: 300px; /* Set a max-width to prevent overflow */
+  padding: 10px; /* Ensure there's padding for aesthetic spacing */
+  background-color: var(--white);
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: calc(100px + 13vw);
+  height: calc(80px + 8vw);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow: hidden; /* Hide overflow within the container */
+}
+
+.button-table-td form {
+  width: 100%; /* Ensure the form fills its parent container */
+  display: flex; /* This makes it easier to control the button within */
+  justify-content: center; /* Center the button within the form */
+  align-items: center; /* Vertically center the button */
+  margin: 0; /* Remove default margin */
 }
 
 .button-table-td-button {
-  font-size: calc(.5rem + 1.3vw);
-  border: none;
-  background-color: var(--white);
-  color: var(--black);
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-}
+  overflow: hidden; /* Ensure overflow content isn't displayed */
+  border: none; /* Remove any border */
+  background-color: transparent; /* No background */
+  cursor: pointer;
+  font-size: calc(2rem + 1.2vw);
+  font-weight: bold;
+  font-family: "Voltaire", sans-serif;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
-.button-table-td-button:hover {
-  background-color: var(--white);
-  color: rgb(90, 201, 186);
-}
-
-input[type=submit].submit-experience-view {
-  border-radius: 10px;
-  padding: 10px;
-  width: 50%;
-  text-align: left;
-  font-size: calc(.5rem + 1.3vw);
-  border: none;
-  background-color: var(--white);
-  color: var(--black);
-  box-sizing: border-box;
-}
-
-input[type=submit].submit-experience-view:hover {
-  background-color: rgb(215, 252, 247);
-}
-
-.button-table-experience {
-  width: 50%;
-  text-align: left;
-  font-size: calc(.5rem + 1.3vw);
-  border: none;
-  background-color: var(--white);
-  color: var(--black);
-  box-sizing: border-box;
-}
-
-.button-table-experience:hover {
-  background-color: rgb(215, 252, 247);
+  /* New styles for text truncation */
+  display: block; /* Change display to block to enable width and overflow control */
+  width: 100%; /* Use full width of the parent */
+  white-space: nowrap; /* Keep text on one line */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis to overflow */
+  padding: 0 10px;  
 }
 
 
-.top-right-button {
+.button-table-td:hover {
+  background-color: var(--black);
+  color: var(--white);
+}
+
+.button-table-td:hover .button-table-td-button {
+  color: inherit;
+}
+
+/* Adjust the search bar container styles */
+.search-bar-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Adjust the search bar container styles */
+.search-bar-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Style the "Create Trip" button */
+.create-trip-button {
+  border: 2px solid var(--dark);
+  background-color: var(--dark);
+  color: var(--white);
+  border-radius: 20pt;
+  padding: 7px 10px; /* Increase padding for a larger button */
+  display: flex; /* Use flexbox */
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px; /* Adjust the font size */
+  font-weight: bold; /* Make the text bold */
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
   position: absolute;
-  top: 10px;
-  right: 20px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: 4pt;
+
 }
 
-.main-top-buttons {
-  padding-top: 1%;
-  padding-right: 2%;
+/* Style the "Create Trip" button hover effect */
+.create-trip-button:hover {
+  border: 2px solid var(--dark);
+  border-radius: 20pt;
 }
 
+/* Style for the city name and button container */
+.th-trip {
+  padding: 20px 0; /* Adjust padding for vertical centering */
+  text-align: center;
+}
+
+/* Style for the button container */
 .button-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: center;
 }
 
+/* Style for individual buttons */
 .button-container-button {
-  margin-left: 10px;
+  margin: 0 10px; /* Adjust margin for spacing between buttons */
 }
 
-/* Images */
-.image-container {
-  float: right;
-  width: 500px;
-  margin-left: 10px;
-  margin-right: 20px;
+/* Main content layout for trip_view.html ------------------------------------------------------------------*/
+
+.trip-view-page main {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  height: calc(100vh - 60px); /* Adjust based on your header height */
+  background-color: var(--dark);
+  padding: 0; /* Remove padding to allow the map to fill up main */
 }
 
-.image-container img {
-  max-width: 100%;
-  height: auto;
+.trip-view-page #map {
+  background-color: lightblue; /* Placeholder for actual map */
+  flex-grow: 1;
+  width: 100%; /* Ensure it covers the full width of the container */
+  height: 100%; /* Adjust based on actual map implementation */
+  z-index: 1;
+}
+
+.trip-view-page .search-bar-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2; /* Ensure search bar is above the map */
+  display: flex;
+  align-items: center;
+  width: 25%; /* Set width to a fourth of the page */
+  background-color: transparent; /* Matches the trips page search bar */
+}
+
+.trip-view-page #place-search {
+  width: 100%; /* Ensures the input fills the search bar container */
+  border: 2px solid var(--gray); /* Consistent with the trips page search bar */
+  border-radius: 20px;
+  font-size: 1rem;
+}
+
+.trip-view-page .material-icons-outlined {
+  position: absolute;
+  left: 10px;
+  color: var(--black); /* Icon color */
+}
+
+.trip-view-page .search-bar-container {
+  position: absolute;
+  top: 20px;
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Center horizontally */
+  display: flex;
+  align-items: center;
+  width: 40%; /* Adjust as needed */
+  background-color: transparent;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Light shadow */
+  border-radius: 20px;
+  z-index: 2;
+}
+
+.trip-view-page .search-bar-container .material-icons-outlined {
+  position: absolute;
+  left: 0; /* Align icon inside the search bar's boundary */
+  top: 50%;
+  transform: translateY(-50%);
+  padding-left: 10px; /* Provide some padding inside the container */
+  z-index: 3;
+  color: var(--black);
+  font-size: 24px; /* Adjust the icon size as needed */
+}
+
+.trip-view-page .search-bar-container input[type="text"] {
+  width: 100%;
+  padding: 10px 10px 10px 40px; /* Adjust left padding to prevent overlap with the icon */
+  border: 2px solid var(--gray);
+  border-radius: 20px;
+  font-size: 1rem;
+  background-color: var(--white);
+  color: var(--black);
+  outline: none;
+}
+
+/* Experiences Table Styling ---------------------------------------------------------------------------------*/
+
+.experiences-table th, .experiences-table td {
+  width: 30%; /* Adjust percentages or use fixed widths as needed */
+}
+
+/* Styles the Trip action buttons (delete, edit) */
+.button-container-button {
+  background-color: transparent; /* Sets the button fill to transparent */
+  border: none; /* Removes the border */
+  padding: 5px; /* Adjust padding to make the button smaller */
+  cursor: pointer; /* Changes cursor to pointer to indicate it's clickable */
+  display: flex; /* Ensures the contents are centered */
+  align-items: center; /* Centers the icon vertically */
+  justify-content: center; /* Centers the icon horizontally */
+}
+
+.button-container-button .material-symbols-outlined {
+  color: var(--black); /* Initial color, replace with your default icon color if not black */
+  font-size: 30px !important; /* Adjusts the icon size to make it smaller */
+}
+
+.button-container-button:hover .material-symbols-outlined {
+  color: var(--medium); /* Changes icon color to 'medium' when hovered */
+}
+
+/* Styles the Experiences container */
+.experiences-table-container {
+  width: 100%;
+  overflow-x: auto; /* Add a horizontal scrollbar when content exceeds the width */
+  z-index: 2;
+}
+
+.trip-view-page .experiences-table {
+  position: absolute;
+  right: 30px;
+  top: 100px;
+  background-color: var(--white);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 2; /* Ensure table is above the map */
+  width: 25%; /* Set width to a fourth of the page */
+  max-height: 75%; /* Adjust based on your preference */
+  overflow-y: auto; /* Allows scrolling if content exceeds max-height */
+  overflow-y: auto;
+  text-align: center;
   display: block;
+  table-layout: fixed;
 }
 
-#map {
-  width: 100%; /* Adjust as needed */
-  height: 400px; /* Adjust as needed */
+/* Styling for the Experiences table head */
+.experiences-table thead {
+  position: sticky;
+  top: 0;
+  background-color: var(--white); /* Set background color for the fixed header */
+  z-index: 1; /* Ensure the fixed header stays above the table body */
+}
+
+.experiences-table th {
+  background-color: var(--white); /* Set background color for the header */
+  text-align: center;
+  font-family: "Voltaire", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+  font-size: 2.5vw;
+  color: var(--black);
+  padding-top: 10pt;
+  box-shadow: 0 3px 3px rgba(0,0,0,0.1);
+}
+
+.experience-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Styling for the Experiences table rows */
+.rating-inline-block, .submit-experience-view {
+  display: inline-flex; 
+  align-items: center;
+  font-size: 16pt; 
+  font-weight: 500;
+  margin-right: 15px; 
+}
+
+.unpin-form {
+  margin-left: auto; 
+}
+
+.submit-experience-view {
+  background: none;
+  border: none;
+  color: var(--dark); 
+  cursor: pointer;
+  text-align: left;
+  display: inline-block; /* Makes it flow like regular text but also respects width limitations */
+  max-width: 15vw; /* Adjust based on your layout's needs */
+  white-space: nowrap; /* Keeps text on a single line */
+  overflow: hidden; /* Hides overflow text */
+  text-overflow: ellipsis; /* Adds ellipsis to truncated text */
+}
+
+.small-button.unpin-button {
+  background-color: transparent; /* Removes button background */
+  border: none; /* Removes border */
+  cursor: pointer; /* Changes cursor to pointer */
+  display: flex; /* Aligns the icon properly */
+  align-items: center; /* Centers the icon vertically */
+  padding: 0; /* Removes padding */
+}
+
+.unpin-button .material-symbols-outlined {
+  font-size: 24pt !important; /* Adjust this value to make the icon smaller or larger */
+}
+
+.unpin-button:hover .material-symbols-outlined {
+  color: var(--medium); /* Applies the 'medium' color variable on hover */
+}
+
+/* General styles for the table rows */
+.experiences-table td {
+  font-family: 'Roboto', sans-serif; /* Applies the Roboto font to all table cell content */
+  color: var(--black); /* Ensures text is black */
+  text-align: left;
+  font-weight: 400;
+  font-style: normal;
+  padding: 20pt;
+  padding-top: 15pt;
+  padding-bottom: 15pt;
+  font-size: 14pt;
+  box-shadow: 0 3px 3px rgba(0,0,0,0.1);
+}
+
+/* Styles for the experience name submit buttons */
+.submit-experience-view {
+  background-color: transparent; /* Removes the button-like background */
+  border: none; /* Removes the border */
+  color: var(--black) !important; /* Sets the text color to black */
+  font-family: 'Roboto', sans-serif; /* Ensures the Roboto font is used */
+  font-weight: 500;
+  text-align: left; /* Aligns text to the left like normal link/text */
+  cursor: pointer; /* Changes the cursor to indicate it's clickable */
+  font-size: 18pt; /* Adjust the font size as desired */
+  padding: 0; /* Removes padding to not look like a button */
+  width: auto; /* Ensures the width is only as wide as the text */
+  display: inline; /* Makes it flow like regular text */
+}
+
+/* Change the hover effect for the experience name to mimic a link */
+.submit-experience-view:hover {
+  color: var(--medium) !important; 
+  background-color: transparent !important;
+}
+
+.material-symbols-outlined.full-star {
+  color: #FFD700; /* Gold color for full stars */
+  font-size: 24px !important; /* Adjust size as needed */
+}
+
+.material-symbols-outlined.empty-star {
+  color: #CCCCCC; /* Light gray for empty stars, adjust color as needed */
+  font-size: 24px !important; /* Adjust size as needed */
+}
+
+.material-symbols-outlined.user-star {
+  margin-top: 5px; 
+  cursor: pointer; /* Makes the stars clickable */
+  transition: color 0.2s; /* Smooth color transition */
+}
+
+#user-rating {
+  display: flex;
+  align-items: center; /* Vertically centers the children (stars and label) */
+  margin-left: 45px; /* Shifts the block to the right */
+  gap: 5px; /* Optional: adds some space between the last star and the text */
+}
+
+.location-container, .description-container  {
+  margin-left: 45px; /* Adjust the space above the location as needed */
+  margin-top: 10px; /* Adjust the space above the location as needed */
+  /* Keep other existing styles */
+}
+
+.description-container {
+  margin-top: 5px; /* Adjust the space above the description as needed */
+  /* Keep other existing styles */
+}
+
+/* Search button styling */
+.trip-view-page .search-bar-container button {
+  background-color: var(--dark);
+  color: var(--white);
+  border: none;
+  border-radius: 20pt;
+  padding: 10px 10px; /* Increase padding for a larger button */
+  display: flex; /* Use flexbox */
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px; /* Adjust the font size */
+  font-weight: bold; /* Make the text bold */
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: 5pt;
+}
+
+/* Search button hover effect */
+.trip-view-page .search-bar-container button:hover {
+  background-color: var(--white);
+  color: var(--dark);
+  border: 2px solid var(--dark);
+  border-radius: 20pt;
 }
