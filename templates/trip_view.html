@@ -16,11 +16,12 @@
     <script src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&libraries=places"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined">
     <!-- Dynamic User Rating Script (includes hover effect) -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const stars = document.querySelectorAll('#user-rating .user-star');
             let ratingValue = document.getElementById('userRatingValue').value;
             const form = document.getElementById('rate-experience'); // Reference to the form
@@ -38,7 +39,13 @@
 
                 // Set rating on click and submit form
                 star.addEventListener('click', () => {
-                    const rating = index + 1;
+                    var rating = index + 1;
+                    // calculate rating from total star indices (modulus 5)
+                    rating = rating % 5;
+                    // account for ratings of 5, set to 5 rather than 0
+                    if (rating == 0) {
+                        rating = 5;
+                    }
                     document.getElementById('userRatingValue').value = rating; // Update hidden input with the rating
                     updateRatingDisplay(rating);
                     form.submit(); // Submit the form
@@ -61,8 +68,8 @@
         <div class="header-container">
             <h1>CROWD-sourced Travel App</h1>
             <a href="/logout" class="sign-in-link">
-            Log Out
-            <span class="material-symbols-outlined">account_circle</span>
+                Log Out
+                <span class="material-symbols-outlined">account_circle</span>
             </a>
         </div>
         <!-- Navigation Links -->
@@ -95,20 +102,22 @@
                         <th class="th-trip">
                             <!-- Trip name-->
                             {{ trip.name }}
-                        
+
                             <!-- Trip Action Buttons-->
                             <div class="button-container">
                                 <div class="button-row">
                                     <!-- Edit Trip Button -->
                                     <form id="edit-trip" method="GET" action="/trip_edit">
-                                        <button class="button-container-button" name="edit-trip" id="tripId" value="{{trip.id}}">
+                                        <button class="button-container-button" name="edit-trip" id="tripId"
+                                            value="{{trip.id}}">
                                             <span class="material-symbols-outlined">edit</span>
                                         </button>
                                     </form>
 
                                     <!-- Delete Trip Button -->
                                     <form id="delete-trip" method="POST" action="/trip_delete">
-                                        <button class="button-container-button" name="delete-trip" id="tripId" value="{{trip.id}}">
+                                        <button class="button-container-button" name="delete-trip" id="tripId"
+                                            value="{{trip.id}}">
                                             <span class="material-symbols-outlined">delete</span>
                                         </button>
                                     </form>
@@ -119,13 +128,13 @@
 
                     <!-- Table Rows -->
                     {% for experience_data in experiences %}
-        
+
                     <tr>{% include 'experience_td.html' %}</tr>
-        
+
                     {% endfor %}
                 </table>
             </div>
         </main>
-    </div>     
+    </div>
 </body>
 </html>
