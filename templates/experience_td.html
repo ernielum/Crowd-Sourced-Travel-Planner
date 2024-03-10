@@ -15,29 +15,30 @@
         <div class="rating-inline-block">
             {{ experience_data.experience.avg_rating }}
         </div>
-        
+
         <!-- Experience Name-->
         <form id="view-experience" method="POST" action="/experience_view">
             <input type="hidden" id="experienceId" name="experienceId" value={{experience_data.experience.id}} />
             <input type="hidden" id="userId" name="userId" value={{user_info.id}} />
             <input type="submit" class="submit-experience-view" value="{{ experience_data.experience.name }}" />
         </form>
-        
+
         <!-- Unpin Button-->
         <form class="unpin-form" id="unpin-experience" method="POST" action="/experience_unpin">
             <input type="hidden" id="tripId" name="tripId" value={{trip.id}} />
-            <input type="hidden" id="experienceId" name="experienceId"
-                value={{experience_data.experience.id}} />
+            <input type="hidden" id="experienceId" name="experienceId" value={{experience_data.experience.id}} />
             <button class="small-button unpin-button" type="submit">
                 <span class="material-symbols-outlined">keep</span>
             </button>
         </form>
-        
+
     </div>
 
     <!-- User Rating -->
     <form class="rate-form" id="rate-experience" method="POST" action="/rate_experience">
         <div class="rating-inline-block" id="user-rating">
+            <input type="hidden" id="experienceId" name="experienceId" value={{experience_data.experience.id}} />
+            <input type="hidden" id="tripId" name="tripId" value={{trip.id}} />
             {% for i in range(1, 6) %}
             <span class="material-symbols-outlined empty-star user-star" data-rating="{{ i }}">star</span>
             {% endfor %}
@@ -47,7 +48,7 @@
 
     <!-- Experience Location -->
     <div class="location-container"> {{ experience_data.experience.address }} </div>
-    
+
     <!-- Experience Description -->
     <div class="description-container"> {{ experience_data.experience.description|truncate(250) }} </div>
 </td>

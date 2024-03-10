@@ -345,7 +345,12 @@ def rate_experience():
     if request.method == 'POST':
         experienceId = request.form.get('experienceId')
         tripId = request.form.get('tripId')
-        rating = request.form.get('rating')
+        userRating = request.form.get('userRating')
+        #userRatingValue = request.form.get('userRatingValue')
+        print("experienceId:", experienceId)
+        print("tripId:", tripId)
+        print("userRating:", userRating)
+        #print("userRatingValue:", userRatingValue)
 
         #----------------------------------
         # Rating Entity
@@ -365,13 +370,13 @@ def rate_experience():
             user_rating.update({
                 'experienceId': experienceId,
                 'user_id': user_id,
-                'rating': rating,
+                'rating': userRating,
             })
         # If user rating already exists, update it
         else:
             user_rating = results[0]
             user_rating.update({
-                'rating': rating,
+                'rating': userRating,
             })
 
         client.put(user_rating)
