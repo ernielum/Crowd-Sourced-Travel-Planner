@@ -36,26 +36,32 @@
     </header>
 
     <main>
-        <form id="search-destinations" method="GET" action="/search">
+        <!-- Destination Search Bar -->
+        <form id="search-destinations" method="POST" action="/trips">
             <div class="search-bar-container">
                 <span class="material-icons-outlined">search</span>
-                <input type="text" placeholder="Search Destinations" id="destination_search" name="destination_search" required="required" />
+                <input type="text" placeholder="Search Destinations" id="new_trip" name="new_trip" required="required" />
+                <input type="submit" name="create-trip" value="Create Trip" class="create-trip-button" >
             </div>
         </form>
         <br>
+
         <h2>My Trips</h2>
 
-        <div class="trips-container">
+        <!-- Trip Buttons -->
+        <table class="button-table">
             {% for trip in trips %}
-            <div class="trip">
-                <form method="GET" action="/trip_view">
-                    <button class="trip-button" name="tripId" value="{{ trip.id }}">
-                        {{ trip.name }}
-                    </button>
-                </form>
-            </div>
+            <tr class="button-row">
+                <td class="button-table-td">
+                    <form id="view-trip" method="GET" action="/trip_view">
+                        <button class="button-table-td-button" name="tripId" id="tripId" value="{{trip.id}}">
+                            {{ trip.name }}</button>
+                    </form>
+                </td>
+            </tr>
             {% endfor %}
-        </div>
+        </table>
+
     </main>
 </body>
 
