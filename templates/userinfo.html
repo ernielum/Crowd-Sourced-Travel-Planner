@@ -7,21 +7,29 @@
   <title>Capstone: Crowd-sourced Travel App</title>
   <script src="{{ url_for('static', filename='script.js') }}"></script>
   <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined">
 </head>
 
 <body>
   <header>
-    <h1>Capstone: Crowd-sourced Travel App</h1>
-  </header>
-
-  {% extends "template.html" %}
-  {% block content %}
+    <div class="header-container">
+      <h1>CROWD-sourced Travel App</h1>
+      <a href="/logout" class="sign-in-link">
+        Log Out
+        <span class="material-symbols-outlined">account_circle</span>
+      </a>
+    </div>
+    <!-- Navigation Links -->
+    <div class="nav">
+      <a href="{{ url_for('trips') }}">Return to My Trips</a>
+    </div>
+</header>
 
   <main>
-    <h2>User information</h2>
+    <h2>User information: Under construction</h2>
   </main>
 
-  {% endblock %}
 </body>
 
 </html>
