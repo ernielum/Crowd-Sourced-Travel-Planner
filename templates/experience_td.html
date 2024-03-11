@@ -33,8 +33,7 @@
     </div>
 
     <!-- User Rating -->
-    <form class="rate-form" id="rate-experience" method="POST"
-        onsubmit="setExperienceId(this, '{{ experience_data.experience.id }}')" action="/rate_experience">
+    <form class="rate-form" id="rate-experience" method="POST" action="/rate_experience">
 
         <div class="rating-inline-block" id="user-rating">
             <input type="hidden" id="experienceId" name="experienceId" value={{experience_data.experience.id}} />
