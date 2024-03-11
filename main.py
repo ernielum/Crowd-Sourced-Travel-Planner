@@ -392,7 +392,7 @@ def rate_experience():
         if not ratings:
             return jsonify({"message": "No ratings found"}), 404
         avg_rating = sum([int(r['rating']) for r in ratings]) / len(ratings)
-        avg_rating = round(avg_rating)
+        avg_rating = round(avg_rating, 1)
 
         #----------------------------------
         # Update Experience Entity

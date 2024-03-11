@@ -10,6 +10,7 @@
 <!doctype html>
 
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Crowd-sourced Travel App</title>
@@ -19,58 +20,6 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined">
-    <!-- Dynamic User Rating Script (includes hover effect) -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const stars = document.querySelectorAll('#user-rating .user-star');
-            let ratingValue = document.getElementById('userRatingValue').value;
-            const form = document.getElementById('rate-experience'); // Reference to the form
-
-            const updateRatingDisplay = (rating) => {
-                stars.forEach((star, index) => {
-                    star.classList.toggle('full-star', index < rating);
-                    star.classList.toggle('empty-star', index >= rating);
-                });
-            };
-
-            stars.forEach((star, index) => {
-                // Preview rating on hover
-                star.addEventListener('mouseover', () => updateRatingDisplay(index + 1));
-
-                // Set rating on click and submit form
-                star.addEventListener('click', () => {
-                    var rating = index + 1;
-                    // calculate rating from total star indices (modulus 5)
-                    rating = rating % 5;
-                    // account for ratings of 5, set to 5 rather than 0
-                    if (rating == 0) {
-                        rating = 5;
-                    }
-                    document.getElementById('userRatingValue').value = rating; // Update hidden input with the rating
-                    updateRatingDisplay(rating);
-
-                    // Get the parent form of the clicked star
-                    const parentForm = star.closest('.rate-form');
-                    // Get the experienceId associated with the parent form
-                    const experienceId = parentForm.querySelector('input[name="experienceId"]').value;
-                    // Update the hidden input with the experienceId
-                    form.querySelector('input[name="experienceId"]').value = experienceId;
-
-                    // Submit the form
-                    form.submit();
-
-                });
-
-                // Reset preview on mouse out to reflect actual selected rating
-                star.addEventListener('mouseleave', () => updateRatingDisplay(ratingValue));
-            });
-
-            // Reset to actual rating when not hovering over the stars
-            document.getElementById('user-rating').addEventListener('mouseleave', () => {
-                updateRatingDisplay(ratingValue);
-            });
-        });
-    </script>
 </head>
 
 <body>
@@ -147,4 +96,5 @@
         </main>
     </div>
 </body>
+
 </html>

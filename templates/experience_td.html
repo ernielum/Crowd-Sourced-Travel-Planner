@@ -17,11 +17,9 @@
         </div>
 
         <!-- Experience Name-->
-        <form id="view-experience" method="POST" action="/experience_view">
-            <input type="hidden" id="experienceId" name="experienceId" value={{experience_data.experience.id}} />
-            <input type="hidden" id="userId" name="userId" value={{user_info.id}} />
-            <input type="submit" class="submit-experience-view" value="{{ experience_data.experience.name }}" />
-        </form>
+        <button class="submit-experience-view" onclick="findExperience('{{experience_data.experience.name}}')">{{
+            experience_data.experience.name
+            }}</button>
 
         <!-- Unpin Button-->
         <form class="unpin-form" id="unpin-experience" method="POST" action="/experience_unpin">
@@ -35,7 +33,9 @@
     </div>
 
     <!-- User Rating -->
-    <form class="rate-form" id="rate-experience" method="POST" action="/rate_experience">
+    <form class="rate-form" id="rate-experience" method="POST"
+        onsubmit="setExperienceId(this, '{{ experience_data.experience.id }}')" action="/rate_experience">
+
         <div class="rating-inline-block" id="user-rating">
             <input type="hidden" id="experienceId" name="experienceId" value={{experience_data.experience.id}} />
             <input type="hidden" id="tripId" name="tripId" value={{trip.id}} />
