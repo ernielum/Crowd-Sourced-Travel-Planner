@@ -10,7 +10,6 @@
 <!doctype html>
 
 <html>
-
 <head>
     <meta charset="utf-8">
     <title>Crowd-sourced Travel App</title>
@@ -49,7 +48,17 @@
                     }
                     document.getElementById('userRatingValue').value = rating; // Update hidden input with the rating
                     updateRatingDisplay(rating);
-                    form.submit(); // Submit the form
+
+                    // Get the parent form of the clicked star
+                    const parentForm = star.closest('.rate-form');
+                    // Get the experienceId associated with the parent form
+                    const experienceId = parentForm.querySelector('input[name="experienceId"]').value;
+                    // Update the hidden input with the experienceId
+                    form.querySelector('input[name="experienceId"]').value = experienceId;
+
+                    // Submit the form
+                    form.submit();
+
                 });
 
                 // Reset preview on mouse out to reflect actual selected rating
@@ -138,5 +147,4 @@
         </main>
     </div>
 </body>
-
 </html>
