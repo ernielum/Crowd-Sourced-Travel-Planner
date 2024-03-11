@@ -17,11 +17,9 @@
         </div>
 
         <!-- Experience Name-->
-        <form id="view-experience" method="POST" action="/experience_view">
-            <input type="hidden" id="experienceId" name="experienceId" value={{experience_data.experience.id}} />
-            <input type="hidden" id="userId" name="userId" value={{user_info.id}} />
-            <input type="submit" class="submit-experience-view" value="{{ experience_data.experience.name }}" />
-        </form>
+        <button class="submit-experience-view" onclick="findExperience('{{experience_data.experience.name}}')">{{
+            experience_data.experience.name
+            }}</button>
 
         <!-- Unpin Button-->
         <form class="unpin-form" id="unpin-experience" method="POST" action="/experience_unpin">
