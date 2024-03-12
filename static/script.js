@@ -46,34 +46,39 @@ function initMap() {
 // Function to handle place search
 function searchPlaces() {
   var input = document.getElementById('place-search').value;
-
   var request = {
     query: input,
-    fields: ['geometry', 'place_id', 'name', 'formatted_address']
+    fields: ['name', 'formatted_address', 'place_id', 'geometry', 'rating']
   };
 
   var service = new google.maps.places.PlacesService(map);
 
-  service.findPlaceFromQuery(request, function (results, status) {
+  service.findPlaceFromQuery(request, function(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK && results && results.length) {
+      experience = results[0]; // Save the place details globally for use in pinExperience
+      var place = results[0];
+      var location = place.geometry.location;
 
-      experience = results
-
-      var location = results[0].geometry.location;
       map.setCenter(location);
       map.setZoom(16);
 
-      // Content to be displayed in infowindow
-      var content = '<strong>' + results[0].name + '</strong><br>';
-      content += results[0].formatted_address + '<br>';
+      var ratingDisplay = place.rating ? "Google Rating: " + place.rating : "Rating not available";
 
-      // Open the info window at the found location
+      var content = '<div style="color: var(--black); font-family: Roboto, sans-serif;">' +
+        '<strong style="font-size: 16px; display: block; margin-bottom: 2px;">' + place.name + '</strong><br>' +
+        place.formatted_address + '<br>' +
+        (place.rating ? 'Google rating: ' + place.rating : 'Google rating not available') +
+        '</div>' +
+        '<div style="text-align: center; margin-top: 5px;">' + // Center pin button and add space
+        '<button onclick="pinExperience()" id="pin-button" ' +
+        'style="display: inline-block; margin: 10px auto; padding: 5px 10px; background-color: var(--dark); color: var(--white); border: none; border-radius: 20px; cursor: pointer;">' +
+        '<span class="material-symbols-outlined" style="vertical-align: middle;">keep</span> Pin' +
+        '</button>' +
+        '</div>';
+
       infoWindow.setContent(content);
       infoWindow.setPosition(location);
       infoWindow.open(map);
-
-      // Show pin button after search
-      document.getElementById('pin-button').style.display = 'block';
 
     } else {
       console.error('Place search failed:', status);
@@ -125,29 +130,29 @@ function findExperience(place_id) {
 
   var request = {
     query: input,
-    fields: ['geometry', 'place_id', 'name', 'formatted_address']
+    fields: ['geometry', 'place_id', 'name', 'formatted_address', 'rating']
   };
 
   var service = new google.maps.places.PlacesService(map);
 
-  service.findPlaceFromQuery(request, function (results, status) {
+  service.findPlaceFromQuery(request, function(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK && results && results.length) {
-
-      experience = results
-
-      var location = results[0].geometry.location;
+      var place = results[0];
+      var location = place.geometry.location;
       map.setCenter(location);
       map.setZoom(16);
 
-      // Content to be displayed in infowindow
-      var content = '<strong>' + results[0].name + '</strong><br>';
-      content += results[0].formatted_address + '<br>';
+      // Constructing content with inline styles
+      var content = '<div style="font-family: Roboto, Arial, sans-serif; color: var(--black);">' +
+        '<strong style="font-size: 16px; margin-bottom: 5px;">' + place.name + '</strong><br>' +
+        '<span style="font-size: 14px;">' + place.formatted_address + '</span><br>' +
+        '<span style="font-size: 14px;">' + (place.rating ? 'Google rating: ' + place.rating : 'Google rating not available') + '</span>' +
+        '</div>' +
+        '<div style="text-align: center; margin-top: 5px;">';
 
-      // Open the info window at the found location
       infoWindow.setContent(content);
       infoWindow.setPosition(location);
       infoWindow.open(map);
-
     } else {
       console.error('Place search failed:', status);
     }
