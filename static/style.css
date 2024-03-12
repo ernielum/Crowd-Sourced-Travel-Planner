@@ -153,6 +153,7 @@ a:visited {}
   color: var(--black);
   font-size: calc(.4rem + 1vw);
   text-decoration: none;
+  border: 3px solid var(--white);
 }
 
 /* Style the hover state of the individual links */
@@ -355,13 +356,7 @@ th, td {
 .search-bar-container {
   display: flex;
   align-items: center;
-}
-
-/* Adjust the search bar container styles */
-.search-bar-container {
   position: relative;
-  display: flex;
-  align-items: center;
 }
 
 /* Style the "Create Trip" button */
@@ -488,11 +483,32 @@ th, td {
   outline: none;
 }
 
-/* Experiences Table Styling ---------------------------------------------------------------------------------*/
-
-.experiences-table th, .experiences-table td {
-  width: 30%; /* Adjust percentages or use fixed widths as needed */
+/* Style for the "Pin Experience" Button */
+#pin-button {
+  display: flex; /* Use flexbox for centering content */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  padding: 5px 10px; /* Adjust padding as needed */
+  background-color: var(--dark) !important; /* Use your --medium color for the button background */
+  border: 2px solid var(--dark) !important;
+  border-radius: 20px; /* Rounded corners */
+  cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transitions for interaction */
+  color: var(--white); /* Icon color, assuming white for contrast */
 }
+
+/* Adjusting the icon size inside the "Pin Experience" Button */
+#pin-button .material-symbols-outlined {
+  font-size: 24px !important; /* Adjust icon size as needed */
+}
+
+#pin-button:hover {
+  border: 2px solid var(--dark) !important; /* Use your --medium color for the button background */
+  background-color: var(--white) !important; /* Darker shade on hover for interaction feedback */
+  color: var(--dark) !important;
+}
+
+/* Experiences Table Styling ---------------------------------------------------------------------------------*/
 
 /* Styles the Trip action buttons (delete, edit) */
 .button-container-button {
@@ -514,22 +530,15 @@ th, td {
   color: var(--medium); /* Changes icon color to 'medium' when hovered */
 }
 
-/* Styles the Experiences container */
-.experiences-table-container {
-  width: 100%;
-  overflow-x: auto; /* Add a horizontal scrollbar when content exceeds the width */
-  z-index: 2;
-}
-
 .trip-view-page .experiences-table {
   position: absolute;
-  right: 30px;
+  left: 15px;
   top: 100px;
   background-color: var(--white);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 2; /* Ensure table is above the map */
-  width: 25%; /* Set width to a fourth of the page */
-  max-height: 75%; /* Adjust based on your preference */
+  width: 26%; /* Set width to a fourth of the page */
+  max-height: 85%; /* Adjust based on your preference */
   overflow-y: auto; /* Allows scrolling if content exceeds max-height */
   overflow-y: auto;
   text-align: center;
@@ -562,16 +571,19 @@ th, td {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+}
+
+.rating-inline-block {
+    min-width: 30px; /* Adjust the minimum width as needed */
+    display: inline-block; /* Ensures the div behaves like an inline element */
 }
 
 /* Styling for the Experiences table rows */
 .rating-inline-block, .submit-experience-view {
-  display: inline-flex; 
-  align-items: center;
-  font-size: 16pt; 
+  display: inline-flex;
+  font-size: 14pt;
   font-weight: 500;
-  margin-right: 15px; 
+  margin-right: 15px;
 }
 
 .unpin-form {
@@ -601,7 +613,7 @@ th, td {
 }
 
 .unpin-button .material-symbols-outlined {
-  font-size: 24pt !important; /* Adjust this value to make the icon smaller or larger */
+  font-size: 20pt !important; /* Adjust this value to make the icon smaller or larger */
 }
 
 .unpin-button:hover .material-symbols-outlined {
@@ -618,12 +630,22 @@ th, td {
   padding: 20pt;
   padding-top: 15pt;
   padding-bottom: 15pt;
-  font-size: 14pt;
+  font-size: 12pt;
   box-shadow: 0 3px 3px rgba(0,0,0,0.1);
 }
 
 /* Styles for the experience name submit buttons */
 .submit-experience-view {
+
+
+}
+.submit-experience-view {
+  cursor: pointer;
+  max-width: 15vw; /* Adjust based on your layout's needs */
+  white-space: nowrap; /* Keeps text on a single line */
+  overflow: hidden; /* Hides overflow text */
+  text-overflow: ellipsis; /* Adds ellipsis to truncated text */
+
   background-color: transparent; /* Removes the button-like background */
   border: none; /* Removes the border */
   color: var(--black) !important; /* Sets the text color to black */
@@ -631,7 +653,7 @@ th, td {
   font-weight: 500;
   text-align: left; /* Aligns text to the left like normal link/text */
   cursor: pointer; /* Changes the cursor to indicate it's clickable */
-  font-size: 18pt; /* Adjust the font size as desired */
+  font-size: 14pt; /* Adjust the font size as desired */
   padding: 0; /* Removes padding to not look like a button */
   width: auto; /* Ensures the width is only as wide as the text */
   display: inline; /* Makes it flow like regular text */
@@ -670,6 +692,7 @@ th, td {
   margin-left: 45px; /* Adjust the space above the location as needed */
   margin-top: 10px; /* Adjust the space above the location as needed */
   /* Keep other existing styles */
+  padding-right: 40px;
 }
 
 .description-container {
@@ -681,7 +704,7 @@ th, td {
 .trip-view-page .search-bar-container button {
   background-color: var(--dark);
   color: var(--white);
-  border: none;
+  border: 2px solid var(--dark);
   border-radius: 20pt;
   padding: 10px 10px; /* Increase padding for a larger button */
   display: flex; /* Use flexbox */
