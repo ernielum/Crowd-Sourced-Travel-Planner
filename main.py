@@ -493,7 +493,7 @@ def trip_view():
 
 @app.route('/trip_edit', methods=['POST'])
 def trip_edit():
-    # Assuming the AJAX request sends JSON data
+   
     data = request.get_json()
     trip_id = data['tripId']
     new_trip_name = data['newName']
