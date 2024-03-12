@@ -491,19 +491,22 @@ def trip_view():
     # return render_template('trip_view.html', jwt=jwt_token, trip=trip, experiences=experiences, API_KEY=maps_key, user_info=user_info)
     return render_template('trip_view.html', jwt=jwt_token, trip=trip, experiences=experience_and_rating_data, API_KEY=maps_key, user_info=user_info)
 
-@app.route('/trip_edit', methods=['GET', 'POST'])
+@app.route('/trip_edit', methods=['POST'])
 def trip_edit():
-    # TODO: Replace dummy FE test stuff with endpoint code and logic.
-    user_info = dummy_user_info
+    # Assuming the AJAX request sends JSON data
+    data = request.get_json()
+    trip_id = data['tripId']
+    new_trip_name = data['newName']
 
-    if request.method == 'GET':
-        tripId = request.args.get('tripId')
+    trip_key = client.key('Trip', int(trip_id))
+    trip = client.get(trip_key)
+    if not trip:
+        return jsonify({'status': 'error', 'message': 'Trip not found'}), 404
 
-        trip_data = dummy_test_trip_data.get("trip"+tripId)
+    trip['name'] = new_trip_name
+    client.put(trip)
 
-
-    jwt_token = session.get('jwt')  
-    return render_template('trip_edit.html', jwt=jwt_token, trip=trip_data, user_info=user_info)
+    return jsonify({'status': 'success', 'newName': new_trip_name})
 
 @app.route('/trip_delete', methods=['GET', 'POST'])
 def trip_delete():
