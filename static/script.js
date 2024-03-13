@@ -221,3 +221,48 @@ document.addEventListener('DOMContentLoaded', function () {
   tripId = document.getElementById('tripId').value;
   ratings();
 });
+
+/**********************************************************
+ * Edit a Trip
+ * Update trip name and save in database
+ *********************************************************/
+
+        function editTripName() {
+            var display = document.getElementById('trip-name-display');
+            var editField = document.getElementById('trip-name-edit');
+            var isEditing = editField.style.display === 'none';
+
+            if (isEditing) {
+                // Switch to edit mode
+                display.style.display = 'none';
+                editField.style.display = '';
+                editField.focus();
+            } else {
+                // Save changes if we're already in edit mode
+                saveTripName(editField.value);
+            }
+        }
+
+        function saveTripName(newName) {
+            var tripId = document.getElementById('edit-trip-button').value;
+            fetch('/trip_edit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tripId: tripId, newName: newName }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Update the display with the new name and switch back to display mode
+                    document.getElementById('trip-name-display').textContent = newName;
+                    document.getElementById('trip-name-display').style.display = '';
+                    document.getElementById('trip-name-edit').style.display = 'none';
+                } else {
+                    console.error('Error updating trip name:', data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+ 
