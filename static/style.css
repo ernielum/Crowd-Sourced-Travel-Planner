@@ -543,7 +543,7 @@ th, td {
   overflow-y: auto; /* Allows scrolling if content exceeds max-height */
   overflow-y: auto;
   text-align: center;
-  display: block;
+
   table-layout: fixed;
 }
 
