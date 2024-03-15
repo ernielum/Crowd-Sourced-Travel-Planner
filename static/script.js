@@ -171,14 +171,21 @@ function ratings() {
 
   const updateRatingDisplay = (rating) => {
     stars.forEach((star, index) => {
-      star.classList.toggle('full-star', index < rating);
-      star.classList.toggle('empty-star', index >= rating);
+      // Get the parent form of the clicked star
+      const parentForm = star.closest('.rate-form');
+      // Get the experienceId associated with the parent form
+      const rating = parentForm.querySelector('input[name="userRating"]').value;
+
+      let star_i = index % 5;
+      
+      star.classList.toggle('full-star', star_i < rating);
+      star.classList.toggle('empty-star', star_i >= rating);
     });
   };
 
   stars.forEach((star, index) => {
     // Preview rating on hover
-    star.addEventListener('mouseover', () => updateRatingDisplay(index + 1));
+    //star.addEventListener('mouseover', () => updateRatingDisplay(index + 1));
 
     // Set rating on click and submit form
     star.addEventListener('click', () => {
