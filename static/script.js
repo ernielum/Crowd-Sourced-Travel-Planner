@@ -169,13 +169,16 @@ function ratings() {
   let ratingValue = document.getElementById('userRatingValue').value;
   const form = document.getElementById('rate-experience'); // Reference to the form
 
-  const updateRatingDisplay = (rating) => {
+  /**
+   * Highlights the star ratings based on user rating value saved in database
+   */
+  const updateRatingDisplay = (rating=0) => {
     stars.forEach((star, index) => {
-      // Get the parent form of the clicked star
+      // Get the parent form of the star
       const parentForm = star.closest('.rate-form');
-      // Get the experienceId associated with the parent form
+      // Get the userRating associated with the parent form
       const rating = parentForm.querySelector('input[name="userRating"]').value;
-
+      // Get 0-4 index of the star
       let star_i = index % 5;
       
       star.classList.toggle('full-star', star_i < rating);
@@ -183,9 +186,47 @@ function ratings() {
     });
   };
 
+  /**
+   * Updates star highlighting based on mouse-hover
+   */
+  const previewRatingDisplay = (rating=0) => {
+    stars.forEach((star, index) => {
+      // account for ratings of 5, set to 5 rather than 0
+      let rating_mod = rating % 5;
+      if (rating_mod == 0) {
+        rating_mod = 5;
+      }
+      // calculate the minimum index for the star in that row
+      let star_i_min = rating - rating_mod;
+
+      // calculate the maximum index for the star in that row
+      let star_i_max = star_i_min + 4;
+      
+      // only update the hovered stars in the current row
+      if (index >= star_i_min && index <= star_i_max) {
+        star.classList.toggle('full-star', index < rating && index >= star_i_min);
+        star.classList.toggle('empty-star', index >= rating && index <= star_i_max);
+      // stars not in current row, set to database user rating values 
+      } else {
+        // Get the parent form of the star
+        const parentForm = star.closest('.rate-form');
+        // Get the userRating associated with the parent form
+        const rating = parentForm.querySelector('input[name="userRating"]').value;
+        // Get 0-4 index of the star
+        let star_i = index % 5;
+      
+        star.classList.toggle('full-star', star_i < rating);
+        star.classList.toggle('empty-star', star_i >= rating);
+      }
+    });
+  };
+
+  // initialize page to show user ratings of stars
+  updateRatingDisplay();
+
   stars.forEach((star, index) => {
-    // Preview rating on hover
-    //star.addEventListener('mouseover', () => updateRatingDisplay(index + 1));
+    // Preview star rating based on mouse hover
+    star.addEventListener('mouseover', () => previewRatingDisplay(index + 1));
 
     // Set rating on click and submit form
     star.addEventListener('click', () => {
@@ -197,8 +238,11 @@ function ratings() {
       if (user_rating == 0) {
         user_rating = 5;
       }
+      
+      // store first experience rating - fixes bug that causes first experience rating to update display during mouseout after click
+      let first_experience_rating = document.getElementById('userRatingValue').value
+
       document.getElementById('userRatingValue').value = user_rating; // Update hidden input with the rating
-      updateRatingDisplay(rating);
 
       // Get the parent form of the clicked star
       const parentForm = star.closest('.rate-form');
@@ -210,8 +254,10 @@ function ratings() {
       // Submit the form
       form.submit();
 
-    });
+      // reset first experience rating - fixes bug that causes first experience rating to update display during mouseout after click
+      document.getElementById('userRatingValue').value = first_experience_rating;
 
+    });
     // Reset preview on mouse out to reflect actual selected rating
     star.addEventListener('mouseleave', () => updateRatingDisplay(ratingValue));
   });
